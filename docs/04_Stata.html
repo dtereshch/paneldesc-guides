@@ -2,13 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.9.36">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>6&nbsp; For Stata users – paneldesc package guides</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -73,10 +76,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-364982630eef5352dd1537128a8ed5cb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-a0c9b17a6f8fef2cdd58135d6438d065.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -232,21 +235,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="6.1" class="anchored" data-anchor-id="set-up"><span class="header-section-number">6.1</span> Set up</h2>
 <p>Import the package.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(paneldesc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(paneldesc)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="data-import" class="level2" data-number="6.2">
 <h2 data-number="6.2" class="anchored" data-anchor-id="data-import"><span class="header-section-number">6.2</span> Data import</h2>
 <p>Import the built-in dataset with simulated unbalanced panel data.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(production)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(production)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="summarize" class="level2" data-number="6.3">
 <h2 data-number="6.3" class="anchored" data-anchor-id="summarize"><span class="header-section-number">6.3</span> summarize</h2>
 <p>You can look at the simple descriptive statistics with <code>summarize_numeric()</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize_numeric</span>(production)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize_numeric</span>(production)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Analyzing all numeric variables: firm, year, sales, capital, labor</code></pre>
 </div>
@@ -283,26 +286,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td style="text-align: left;">sales</td>
 <td style="text-align: right;">154</td>
-<td style="text-align: right;">69.756</td>
-<td style="text-align: right;">46.804</td>
-<td style="text-align: right;">8.321</td>
-<td style="text-align: right;">336.853</td>
+<td style="text-align: right;">68.402</td>
+<td style="text-align: right;">45.025</td>
+<td style="text-align: right;">11.999</td>
+<td style="text-align: right;">292.850</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">capital</td>
 <td style="text-align: right;">154</td>
-<td style="text-align: right;">32.490</td>
-<td style="text-align: right;">31.053</td>
-<td style="text-align: right;">0.968</td>
-<td style="text-align: right;">194.719</td>
+<td style="text-align: right;">33.152</td>
+<td style="text-align: right;">32.044</td>
+<td style="text-align: right;">2.030</td>
+<td style="text-align: right;">160.085</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">labor</td>
 <td style="text-align: right;">154</td>
-<td style="text-align: right;">79.329</td>
-<td style="text-align: right;">73.687</td>
-<td style="text-align: right;">4.097</td>
-<td style="text-align: right;">419.848</td>
+<td style="text-align: right;">76.883</td>
+<td style="text-align: right;">74.150</td>
+<td style="text-align: right;">5.972</td>
+<td style="text-align: right;">579.024</td>
 </tr>
 </tbody>
 </table>
@@ -314,14 +317,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="6.4" class="anchored" data-anchor-id="xtset"><span class="header-section-number">6.4</span> xtset</h2>
 <p>You can set up a panel structure in advance so that you don’t have to do it later each time you use other functions. Note that if <code>delta</code> is supplied, the function checks for omitted time periods. If such periods exist, they will be taken into account when other functions work with this argument.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>panel <span class="ot">&lt;-</span> <span class="fu">make_panel</span>(production, <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"firm"</span>, <span class="st">"year"</span>), <span class="at">delta =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>panel <span class="ot">&lt;-</span> <span class="fu">make_panel</span>(production, <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"firm"</span>, <span class="st">"year"</span>), <span class="at">delta =</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="xtdes" class="level2" data-number="6.5">
 <h2 data-number="6.5" class="anchored" data-anchor-id="xtdes"><span class="header-section-number">6.5</span> xtdes</h2>
 <p><code>xtdes</code> command funcitonality can be reproduced by combining <code>describe_dimensions()</code>, <code>describe_balance()</code>, and <code>describe_patterns()</code> functions.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">describe_dimensions</span>(panel)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">describe_dimensions</span>(panel)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="caption-top table table-sm table-striped small">
@@ -338,7 +341,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: right;">180</td>
 <td style="text-align: right;">30</td>
 <td style="text-align: right;">6</td>
-<td style="text-align: right;">5</td>
+<td style="text-align: right;">6</td>
 </tr>
 </tbody>
 </table>
@@ -346,7 +349,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">describe_balance</span>(panel, <span class="at">detail =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">describe_balance</span>(panel, <span class="at">detail =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="caption-top table table-sm table-striped small">
@@ -395,7 +398,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">describe_patterns</span>(panel)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">describe_patterns</span>(panel)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="caption-top table table-sm table-striped small">
@@ -500,7 +503,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="6.6" class="anchored" data-anchor-id="xtsum"><span class="header-section-number">6.6</span> xtsum</h2>
 <p><code>xtsum</code> command funcitonality can be reproduced with <code>decompose_numeric()</code> function.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">decompose_numeric</span>(panel)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">decompose_numeric</span>(panel)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Analyzing all numeric variables: sales, capital, labor</code></pre>
 </div>
@@ -522,82 +525,82 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td style="text-align: left;">sales</td>
 <td style="text-align: left;">overall</td>
-<td style="text-align: right;">69.756</td>
-<td style="text-align: right;">46.804</td>
-<td style="text-align: right;">8.321</td>
-<td style="text-align: right;">336.853</td>
+<td style="text-align: right;">68.402</td>
+<td style="text-align: right;">45.025</td>
+<td style="text-align: right;">11.999</td>
+<td style="text-align: right;">292.850</td>
 <td style="text-align: right;">154.000</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">sales</td>
 <td style="text-align: left;">between</td>
 <td style="text-align: right;">NA</td>
-<td style="text-align: right;">29.776</td>
-<td style="text-align: right;">25.772</td>
-<td style="text-align: right;">159.197</td>
+<td style="text-align: right;">29.060</td>
+<td style="text-align: right;">34.263</td>
+<td style="text-align: right;">166.364</td>
 <td style="text-align: right;">30.000</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">sales</td>
 <td style="text-align: left;">within</td>
 <td style="text-align: right;">NA</td>
-<td style="text-align: right;">35.862</td>
-<td style="text-align: right;">-28.397</td>
-<td style="text-align: right;">247.412</td>
+<td style="text-align: right;">34.127</td>
+<td style="text-align: right;">-12.444</td>
+<td style="text-align: right;">234.297</td>
 <td style="text-align: right;">5.133</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">capital</td>
 <td style="text-align: left;">overall</td>
-<td style="text-align: right;">32.490</td>
-<td style="text-align: right;">31.053</td>
-<td style="text-align: right;">0.968</td>
-<td style="text-align: right;">194.719</td>
+<td style="text-align: right;">33.152</td>
+<td style="text-align: right;">32.044</td>
+<td style="text-align: right;">2.030</td>
+<td style="text-align: right;">160.085</td>
 <td style="text-align: right;">154.000</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">capital</td>
 <td style="text-align: left;">between</td>
 <td style="text-align: right;">NA</td>
-<td style="text-align: right;">13.969</td>
-<td style="text-align: right;">8.671</td>
-<td style="text-align: right;">75.083</td>
+<td style="text-align: right;">17.414</td>
+<td style="text-align: right;">9.019</td>
+<td style="text-align: right;">74.225</td>
 <td style="text-align: right;">30.000</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">capital</td>
 <td style="text-align: left;">within</td>
 <td style="text-align: right;">NA</td>
-<td style="text-align: right;">27.701</td>
-<td style="text-align: right;">-22.444</td>
-<td style="text-align: right;">152.126</td>
+<td style="text-align: right;">27.072</td>
+<td style="text-align: right;">-25.567</td>
+<td style="text-align: right;">149.329</td>
 <td style="text-align: right;">5.133</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">labor</td>
 <td style="text-align: left;">overall</td>
-<td style="text-align: right;">79.329</td>
-<td style="text-align: right;">73.687</td>
-<td style="text-align: right;">4.097</td>
-<td style="text-align: right;">419.848</td>
+<td style="text-align: right;">76.883</td>
+<td style="text-align: right;">74.150</td>
+<td style="text-align: right;">5.972</td>
+<td style="text-align: right;">579.024</td>
 <td style="text-align: right;">154.000</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">labor</td>
 <td style="text-align: left;">between</td>
 <td style="text-align: right;">NA</td>
-<td style="text-align: right;">44.023</td>
-<td style="text-align: right;">24.606</td>
-<td style="text-align: right;">175.731</td>
+<td style="text-align: right;">41.068</td>
+<td style="text-align: right;">31.021</td>
+<td style="text-align: right;">190.645</td>
 <td style="text-align: right;">30.000</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">labor</td>
 <td style="text-align: left;">within</td>
 <td style="text-align: right;">NA</td>
-<td style="text-align: right;">59.561</td>
-<td style="text-align: right;">-77.709</td>
-<td style="text-align: right;">323.445</td>
+<td style="text-align: right;">61.202</td>
+<td style="text-align: right;">-58.040</td>
+<td style="text-align: right;">483.217</td>
 <td style="text-align: right;">5.133</td>
 </tr>
 </tbody>
@@ -610,9 +613,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="6.7" class="anchored" data-anchor-id="xttab"><span class="header-section-number">6.7</span> xttab</h2>
 <p><code>xttab</code> command funcitonality can be reproduced with <code>decompose_factor()</code> function.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">decompose_factor</span>(panel)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">decompose_factor</span>(panel)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Analyzing all factor variables: industry, ownership</code></pre>
+<pre><code>Analyzing all factor variables: industry, ownership, region</code></pre>
 </div>
 <div class="cell-output-display">
 <div class="kable-table">
@@ -668,29 +671,65 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td style="text-align: left;">ownership</td>
 <td style="text-align: left;">private</td>
-<td style="text-align: right;">76</td>
-<td style="text-align: right;">0.484</td>
-<td style="text-align: right;">16</td>
-<td style="text-align: right;">0.533</td>
-<td style="text-align: right;">0.898</td>
+<td style="text-align: right;">80</td>
+<td style="text-align: right;">0.510</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">0.567</td>
+<td style="text-align: right;">0.894</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">ownership</td>
 <td style="text-align: left;">public</td>
-<td style="text-align: right;">55</td>
-<td style="text-align: right;">0.350</td>
-<td style="text-align: right;">13</td>
-<td style="text-align: right;">0.433</td>
-<td style="text-align: right;">0.813</td>
+<td style="text-align: right;">36</td>
+<td style="text-align: right;">0.229</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">0.300</td>
+<td style="text-align: right;">0.787</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">ownership</td>
 <td style="text-align: left;">mixed</td>
-<td style="text-align: right;">26</td>
-<td style="text-align: right;">0.166</td>
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">0.261</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">0.333</td>
+<td style="text-align: right;">0.772</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">region</td>
+<td style="text-align: left;">west</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">0.242</td>
 <td style="text-align: right;">7</td>
 <td style="text-align: right;">0.233</td>
-<td style="text-align: right;">0.724</td>
+<td style="text-align: right;">1.000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">region</td>
+<td style="text-align: left;">east</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">0.255</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0.267</td>
+<td style="text-align: right;">1.000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">region</td>
+<td style="text-align: left;">north</td>
+<td style="text-align: right;">36</td>
+<td style="text-align: right;">0.229</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0.233</td>
+<td style="text-align: right;">1.000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">region</td>
+<td style="text-align: left;">south</td>
+<td style="text-align: right;">43</td>
+<td style="text-align: right;">0.274</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0.267</td>
+<td style="text-align: right;">1.000</td>
 </tr>
 </tbody>
 </table>
@@ -702,7 +741,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="6.8" class="anchored" data-anchor-id="xttrans"><span class="header-section-number">6.8</span> xttrans</h2>
 <p><code>xttrans</code> command funcitonality can be reproduced with <code>summarize_transition()</code> function.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize_transition</span>(panel, <span class="at">select =</span> <span class="st">"industry"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize_transition</span>(panel, <span class="at">select =</span> <span class="st">"industry"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>23 rows with NA values in 'industry' removed.</code></pre>
 </div>
@@ -797,13 +836,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

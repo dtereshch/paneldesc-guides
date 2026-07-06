@@ -76,17 +76,17 @@ xtsum::xtsum(production, variables = c("sales", "capital", "labor"), id = "firm"
 ## paneldesc vs. plm
 
 ```{r}
-paneldesc_bal_1 <- paneldesc::make_panel(unbalanced, index = c("firm", "year"), balance = "entities")
+paneldesc_bal_1 <- paneldesc::make_balanced(unbalanced, index = c("firm", "year"), balance = "entities")
 dim(paneldesc_bal_1)
 ```
 
 ```{r}
-paneldesc_bal_2 <- paneldesc::make_panel(unbalanced, index = c("firm", "year"), balance = "periods")
+paneldesc_bal_2 <- paneldesc::make_balanced(unbalanced, index = c("firm", "year"), balance = "periods")
 dim(paneldesc_bal_2)
 ```
 
 ```{r}
-paneldesc_bal_3 <- paneldesc::make_panel(unbalanced, index = c("firm", "year"), balance = "rows")
+paneldesc_bal_3 <- paneldesc::make_balanced(unbalanced, index = c("firm", "year"), balance = "rows")
 dim(paneldesc_bal_3)
 ```
 

@@ -3,11 +3,10 @@ title: "First steps"
 format: html
 ---
 
-The package can be installed from GitHub using `devtools`.
+The package can be installed from GitHub using `pak`.
 
 ```{r, eval=FALSE}
-# install.packages("devtools")
-devtools::install_github("dtereshch/paneldesc")
+pak::pak("dtereshch/paneldesc")
 ```
 
 After that, you can import it in the usual way.
@@ -26,7 +25,13 @@ All functions of the package have detailed documentation with examples.
 ?describe_incomplete
 ?describe_patterns
 ?describe_periods
+?make_balanced
+?make_demeaned
+?make_long
+?make_mundlak
 ?make_panel
+?make_wide
+?plot_demeaned
 ?plot_heterogeneity
 ?plot_missing
 ?plot_patterns

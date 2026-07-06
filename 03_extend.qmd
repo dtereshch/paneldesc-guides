@@ -28,28 +28,6 @@ Note that if `delta` is supplied, the function checks for omitted time periods. 
 panel <- make_panel(production, index = c("firm", "year"), delta = 1)
 ```
 
-## Creating balanced panel data
-
-The `make_panel()` function also allows to balance panel data using various options:
-
-* keeping only entities present in all time periods;
-
-```{r}
-balance_entities <- make_panel(production, index = c("firm", "year"), balance = "entities")
-```
-
-* keeping only time periods where all entities are present;
-
-```{r}
-balance_periods <- make_panel(production, index = c("firm", "year"), balance = "periods")
-```
-
-* creating a row for every entity‑time combination (if `delta` is supplied, the full time sequence including missing periods is used).
-
-```{r}
-balance_rows <- make_panel(production, index = c("firm", "year"), delta = 1, balance = "rows")
-```
-
 ## Panel data structure analysis
 
 If necessary, you can display more detailed statistics on the distribution of entities by periods and periods by entities.
@@ -139,6 +117,27 @@ decompose_numeric(
   digits = 2
 )
 ```
+
+`plot_demeaned()` allows to choose several grouping variables. One can also customize colors. 
+
+```{r}
+plot_demeaned(
+  production,
+  select = "sales",
+  group = c("industry", "region", "year"),
+  colors = c("gray", "black")
+)
+```
+
+```{r}
+plot_demeaned(
+  production,
+  select = c("labor", "sales"),
+  group = c("industry", "region", "year"),
+  colors = c("gray", "black")
+)
+```
+
 
 ## Factor variables analysis
 

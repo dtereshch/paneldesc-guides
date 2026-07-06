@@ -2,13 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.9.36">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>3&nbsp; Basic example – paneldesc package guides</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -73,10 +76,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-364982630eef5352dd1537128a8ed5cb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-a0c9b17a6f8fef2cdd58135d6438d065.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -230,14 +233,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="3.1" class="anchored" data-anchor-id="set-up"><span class="header-section-number">3.1</span> Set up</h2>
 <p>Import the package.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(paneldesc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(paneldesc)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="data-import" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="data-import"><span class="header-section-number">3.2</span> Data import</h2>
 <p>Import the built-in dataset with simulated unbalanced panel data.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(production)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(production)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="panel-data-structure-analysis" class="level2" data-number="3.3">
@@ -245,7 +248,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The first group of functions is designed to analyze the structure of the panel.</p>
 <p>To begin with, you can look at the basic characteristics of the panel: the number of entities, the number of periods, the number of rows, and the number of variables.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">describe_dimensions</span>(production, <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"firm"</span>, <span class="st">"year"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">describe_dimensions</span>(production, <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"firm"</span>, <span class="st">"year"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="caption-top table table-sm table-striped small">
@@ -262,7 +265,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: right;">180</td>
 <td style="text-align: right;">30</td>
 <td style="text-align: right;">6</td>
-<td style="text-align: right;">5</td>
+<td style="text-align: right;">6</td>
 </tr>
 </tbody>
 </table>
@@ -271,7 +274,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>To begin analyzing the balance of the panel, you can look at the representation of entities by period.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">describe_periods</span>(production, <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"firm"</span>, <span class="st">"year"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">describe_periods</span>(production, <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"firm"</span>, <span class="st">"year"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="caption-top table table-sm table-striped small">
@@ -320,7 +323,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>For a more detailed analysis of the panel balance, you can look at the distribution of the number of entities by periods and the number of periods by entities.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">describe_balance</span>(production, <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"firm"</span>, <span class="st">"year"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">describe_balance</span>(production, <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"firm"</span>, <span class="st">"year"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="caption-top table table-sm table-striped small">
@@ -355,7 +358,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>You can also visualize the distribution of the number of periods across entities.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_periods</span>(production, <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"firm"</span>, <span class="st">"year"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_periods</span>(production, <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"firm"</span>, <span class="st">"year"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -366,7 +369,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>In addition, the main patterns of entities participation in the panel can be displayed in a table or graph.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">describe_patterns</span>(production, <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"firm"</span>, <span class="st">"year"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">describe_patterns</span>(production, <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"firm"</span>, <span class="st">"year"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="caption-top table table-sm table-striped small">
@@ -467,7 +470,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_patterns</span>(production, <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"firm"</span>, <span class="st">"year"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_patterns</span>(production, <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"firm"</span>, <span class="st">"year"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -482,9 +485,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The second group of functions is aimed at analyzing missing values, taking into account the nature of panel data.</p>
 <p>You can create a heatmap showing the number of missing values for each variable across all time periods.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_missing</span>(production, <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"firm"</span>, <span class="st">"year"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_missing</span>(production, <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"firm"</span>, <span class="st">"year"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Analysing all variables: sales, capital, labor, industry, ownership</code></pre>
+<pre><code>Analysing all variables: sales, capital, labor, industry, ownership, region</code></pre>
 </div>
 <div class="cell-output-display">
 <div>
@@ -496,9 +499,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Also, you can output the table with brief summary statistics on missing values.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize_missing</span>(production, <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"firm"</span>, <span class="st">"year"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize_missing</span>(production, <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"firm"</span>, <span class="st">"year"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Analyzing all variables: sales, capital, labor, industry, ownership</code></pre>
+<pre><code>Analyzing all variables: sales, capital, labor, industry, ownership, region</code></pre>
 </div>
 <div class="cell-output-display">
 <div class="kable-table">
@@ -518,20 +521,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: right;">26</td>
 <td style="text-align: right;">0.144</td>
 <td style="text-align: right;">15</td>
-<td style="text-align: right;">5</td>
+<td style="text-align: right;">6</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">capital</td>
 <td style="text-align: right;">26</td>
 <td style="text-align: right;">0.144</td>
 <td style="text-align: right;">17</td>
-<td style="text-align: right;">5</td>
+<td style="text-align: right;">6</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">labor</td>
 <td style="text-align: right;">26</td>
 <td style="text-align: right;">0.144</td>
-<td style="text-align: right;">16</td>
+<td style="text-align: right;">15</td>
 <td style="text-align: right;">6</td>
 </tr>
 <tr class="even">
@@ -548,6 +551,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: right;">14</td>
 <td style="text-align: right;">5</td>
 </tr>
+<tr class="even">
+<td style="text-align: left;">region</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">0.128</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">5</td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -555,7 +565,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>In addition, you can compare missing values statistics across various entities.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">describe_incomplete</span>(production, <span class="at">index =</span> <span class="st">"firm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">describe_incomplete</span>(production, <span class="at">index =</span> <span class="st">"firm"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="caption-top table table-sm table-striped small">
@@ -569,96 +579,91 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td style="text-align: right;">23</td>
-<td style="text-align: right;">15</td>
-<td style="text-align: right;">5</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">21</td>
-<td style="text-align: right;">11</td>
-<td style="text-align: right;">5</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">10</td>
-<td style="text-align: right;">5</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">10</td>
-<td style="text-align: right;">5</td>
-</tr>
-<tr class="odd">
+<td style="text-align: right;">18</td>
 <td style="text-align: right;">6</td>
-<td style="text-align: right;">10</td>
-<td style="text-align: right;">5</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">7</td>
-<td style="text-align: right;">10</td>
-<td style="text-align: right;">5</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">6</td>
 </tr>
 <tr class="odd">
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">12</td>
-<td style="text-align: right;">10</td>
-<td style="text-align: right;">5</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">21</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">6</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">26</td>
-<td style="text-align: right;">10</td>
-<td style="text-align: right;">5</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">6</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">25</td>
+<td style="text-align: right;">7</td>
 <td style="text-align: right;">6</td>
-<td style="text-align: right;">5</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">30</td>
+<td style="text-align: right;">7</td>
 <td style="text-align: right;">6</td>
-<td style="text-align: right;">5</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">4</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">5</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">6</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">13</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">5</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">6</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">17</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">5</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">6</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">29</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">5</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">6</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">8</td>
+<td style="text-align: right;">14</td>
 <td style="text-align: right;">2</td>
 <td style="text-align: right;">2</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="odd">
 <td style="text-align: right;">10</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">1</td>
 </tr>
-<tr class="even">
-<td style="text-align: right;">14</td>
+<tr class="odd">
+<td style="text-align: right;">22</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">1</td>
 </tr>
-<tr class="odd">
-<td style="text-align: right;">24</td>
+<tr class="even">
+<td style="text-align: right;">27</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">1</td>
 </tr>
@@ -673,7 +678,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The third group of functions is aimed at analyzing numeric variables, taking into account the nature of panel data.</p>
 <p>If you need to, you can output a table with simple descriptive statistics.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize_numeric</span>(production)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize_numeric</span>(production)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Analyzing all numeric variables: firm, year, sales, capital, labor</code></pre>
 </div>
@@ -710,26 +715,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td style="text-align: left;">sales</td>
 <td style="text-align: right;">154</td>
-<td style="text-align: right;">69.756</td>
-<td style="text-align: right;">46.804</td>
-<td style="text-align: right;">8.321</td>
-<td style="text-align: right;">336.853</td>
+<td style="text-align: right;">68.402</td>
+<td style="text-align: right;">45.025</td>
+<td style="text-align: right;">11.999</td>
+<td style="text-align: right;">292.850</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">capital</td>
 <td style="text-align: right;">154</td>
-<td style="text-align: right;">32.490</td>
-<td style="text-align: right;">31.053</td>
-<td style="text-align: right;">0.968</td>
-<td style="text-align: right;">194.719</td>
+<td style="text-align: right;">33.152</td>
+<td style="text-align: right;">32.044</td>
+<td style="text-align: right;">2.030</td>
+<td style="text-align: right;">160.085</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">labor</td>
 <td style="text-align: right;">154</td>
-<td style="text-align: right;">79.329</td>
-<td style="text-align: right;">73.687</td>
-<td style="text-align: right;">4.097</td>
-<td style="text-align: right;">419.848</td>
+<td style="text-align: right;">76.883</td>
+<td style="text-align: right;">74.150</td>
+<td style="text-align: right;">5.972</td>
+<td style="text-align: right;">579.024</td>
 </tr>
 </tbody>
 </table>
@@ -738,7 +743,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Descriptive statistics can be grouped by some variable, which does not necessarily have to be a panel identifier.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize_numeric</span>(production, <span class="at">group =</span> <span class="st">"year"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize_numeric</span>(production, <span class="at">group =</span> <span class="st">"year"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Analyzing all numeric variables: firm, sales, capital, labor</code></pre>
 </div>
@@ -770,28 +775,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">1</td>
 <td style="text-align: left;">sales</td>
 <td style="text-align: right;">25</td>
-<td style="text-align: right;">58.491</td>
-<td style="text-align: right;">44.590</td>
-<td style="text-align: right;">8.321</td>
-<td style="text-align: right;">190.100</td>
+<td style="text-align: right;">72.304</td>
+<td style="text-align: right;">43.040</td>
+<td style="text-align: right;">11.999</td>
+<td style="text-align: right;">192.591</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">1</td>
 <td style="text-align: left;">capital</td>
-<td style="text-align: right;">24</td>
-<td style="text-align: right;">24.862</td>
-<td style="text-align: right;">16.273</td>
-<td style="text-align: right;">0.968</td>
-<td style="text-align: right;">65.950</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">40.154</td>
+<td style="text-align: right;">39.004</td>
+<td style="text-align: right;">3.206</td>
+<td style="text-align: right;">148.942</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">1</td>
 <td style="text-align: left;">labor</td>
-<td style="text-align: right;">25</td>
-<td style="text-align: right;">68.871</td>
-<td style="text-align: right;">66.941</td>
-<td style="text-align: right;">4.097</td>
-<td style="text-align: right;">246.852</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">74.349</td>
+<td style="text-align: right;">69.766</td>
+<td style="text-align: right;">18.414</td>
+<td style="text-align: right;">333.377</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">2</td>
@@ -806,100 +811,100 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">2</td>
 <td style="text-align: left;">sales</td>
 <td style="text-align: right;">28</td>
-<td style="text-align: right;">56.099</td>
-<td style="text-align: right;">37.944</td>
-<td style="text-align: right;">17.803</td>
-<td style="text-align: right;">186.349</td>
+<td style="text-align: right;">67.557</td>
+<td style="text-align: right;">35.056</td>
+<td style="text-align: right;">20.375</td>
+<td style="text-align: right;">150.742</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">2</td>
 <td style="text-align: left;">capital</td>
-<td style="text-align: right;">27</td>
-<td style="text-align: right;">28.790</td>
-<td style="text-align: right;">31.053</td>
-<td style="text-align: right;">3.150</td>
-<td style="text-align: right;">151.464</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">2</td>
-<td style="text-align: left;">labor</td>
-<td style="text-align: right;">27</td>
-<td style="text-align: right;">60.463</td>
-<td style="text-align: right;">48.484</td>
-<td style="text-align: right;">11.692</td>
-<td style="text-align: right;">222.761</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">3</td>
-<td style="text-align: left;">firm</td>
-<td style="text-align: right;">30</td>
-<td style="text-align: right;">15.500</td>
-<td style="text-align: right;">8.803</td>
-<td style="text-align: right;">1.000</td>
-<td style="text-align: right;">30.000</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">3</td>
-<td style="text-align: left;">sales</td>
-<td style="text-align: right;">30</td>
-<td style="text-align: right;">76.660</td>
-<td style="text-align: right;">47.574</td>
-<td style="text-align: right;">20.580</td>
-<td style="text-align: right;">219.513</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">3</td>
-<td style="text-align: left;">capital</td>
-<td style="text-align: right;">30</td>
-<td style="text-align: right;">35.464</td>
-<td style="text-align: right;">39.174</td>
-<td style="text-align: right;">4.729</td>
-<td style="text-align: right;">194.719</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">3</td>
-<td style="text-align: left;">labor</td>
-<td style="text-align: right;">29</td>
-<td style="text-align: right;">90.437</td>
-<td style="text-align: right;">82.628</td>
-<td style="text-align: right;">9.284</td>
-<td style="text-align: right;">414.844</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">4</td>
-<td style="text-align: left;">firm</td>
-<td style="text-align: right;">30</td>
-<td style="text-align: right;">15.500</td>
-<td style="text-align: right;">8.803</td>
-<td style="text-align: right;">1.000</td>
-<td style="text-align: right;">30.000</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">4</td>
-<td style="text-align: left;">sales</td>
 <td style="text-align: right;">28</td>
-<td style="text-align: right;">73.104</td>
-<td style="text-align: right;">33.238</td>
-<td style="text-align: right;">19.455</td>
-<td style="text-align: right;">135.118</td>
+<td style="text-align: right;">30.210</td>
+<td style="text-align: right;">30.596</td>
+<td style="text-align: right;">5.032</td>
+<td style="text-align: right;">122.332</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">labor</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">81.758</td>
+<td style="text-align: right;">66.571</td>
+<td style="text-align: right;">17.666</td>
+<td style="text-align: right;">327.581</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">firm</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">15.500</td>
+<td style="text-align: right;">8.803</td>
+<td style="text-align: right;">1.000</td>
+<td style="text-align: right;">30.000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">sales</td>
+<td style="text-align: right;">29</td>
+<td style="text-align: right;">72.089</td>
+<td style="text-align: right;">64.525</td>
+<td style="text-align: right;">17.320</td>
+<td style="text-align: right;">292.850</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">capital</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">30.111</td>
+<td style="text-align: right;">30.372</td>
+<td style="text-align: right;">2.030</td>
+<td style="text-align: right;">121.740</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">labor</td>
+<td style="text-align: right;">29</td>
+<td style="text-align: right;">82.256</td>
+<td style="text-align: right;">106.869</td>
+<td style="text-align: right;">8.172</td>
+<td style="text-align: right;">579.024</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">firm</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">15.500</td>
+<td style="text-align: right;">8.803</td>
+<td style="text-align: right;">1.000</td>
+<td style="text-align: right;">30.000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">sales</td>
+<td style="text-align: right;">27</td>
+<td style="text-align: right;">56.859</td>
+<td style="text-align: right;">31.707</td>
+<td style="text-align: right;">12.000</td>
+<td style="text-align: right;">136.687</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">4</td>
 <td style="text-align: left;">capital</td>
-<td style="text-align: right;">29</td>
-<td style="text-align: right;">44.522</td>
-<td style="text-align: right;">35.375</td>
-<td style="text-align: right;">5.080</td>
-<td style="text-align: right;">132.898</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">34.889</td>
+<td style="text-align: right;">32.046</td>
+<td style="text-align: right;">7.146</td>
+<td style="text-align: right;">148.994</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">4</td>
 <td style="text-align: left;">labor</td>
 <td style="text-align: right;">29</td>
-<td style="text-align: right;">73.967</td>
-<td style="text-align: right;">54.005</td>
-<td style="text-align: right;">16.327</td>
-<td style="text-align: right;">240.726</td>
+<td style="text-align: right;">55.533</td>
+<td style="text-align: right;">46.448</td>
+<td style="text-align: right;">5.972</td>
+<td style="text-align: right;">207.572</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">5</td>
@@ -913,29 +918,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td style="text-align: left;">5</td>
 <td style="text-align: left;">sales</td>
-<td style="text-align: right;">24</td>
-<td style="text-align: right;">75.398</td>
-<td style="text-align: right;">43.091</td>
-<td style="text-align: right;">20.161</td>
-<td style="text-align: right;">211.092</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">5</td>
-<td style="text-align: left;">capital</td>
-<td style="text-align: right;">25</td>
-<td style="text-align: right;">28.351</td>
-<td style="text-align: right;">23.127</td>
-<td style="text-align: right;">5.339</td>
-<td style="text-align: right;">86.078</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">5</td>
-<td style="text-align: left;">labor</td>
 <td style="text-align: right;">26</td>
-<td style="text-align: right;">90.604</td>
-<td style="text-align: right;">85.026</td>
-<td style="text-align: right;">21.063</td>
-<td style="text-align: right;">413.784</td>
+<td style="text-align: right;">62.159</td>
+<td style="text-align: right;">41.237</td>
+<td style="text-align: right;">19.773</td>
+<td style="text-align: right;">189.069</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">capital</td>
+<td style="text-align: right;">26</td>
+<td style="text-align: right;">28.076</td>
+<td style="text-align: right;">21.871</td>
+<td style="text-align: right;">4.637</td>
+<td style="text-align: right;">78.244</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">labor</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">74.056</td>
+<td style="text-align: right;">71.255</td>
+<td style="text-align: right;">15.879</td>
+<td style="text-align: right;">266.829</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">6</td>
@@ -950,28 +955,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">6</td>
 <td style="text-align: left;">sales</td>
 <td style="text-align: right;">19</td>
-<td style="text-align: right;">81.744</td>
-<td style="text-align: right;">73.320</td>
-<td style="text-align: right;">20.352</td>
-<td style="text-align: right;">336.853</td>
+<td style="text-align: right;">83.835</td>
+<td style="text-align: right;">45.564</td>
+<td style="text-align: right;">25.986</td>
+<td style="text-align: right;">191.585</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">6</td>
 <td style="text-align: left;">capital</td>
 <td style="text-align: right;">19</td>
-<td style="text-align: right;">29.767</td>
-<td style="text-align: right;">30.908</td>
-<td style="text-align: right;">2.288</td>
-<td style="text-align: right;">108.787</td>
+<td style="text-align: right;">37.145</td>
+<td style="text-align: right;">39.400</td>
+<td style="text-align: right;">3.690</td>
+<td style="text-align: right;">160.085</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">6</td>
 <td style="text-align: left;">labor</td>
-<td style="text-align: right;">18</td>
-<td style="text-align: right;">96.609</td>
-<td style="text-align: right;">103.777</td>
-<td style="text-align: right;">20.507</td>
-<td style="text-align: right;">419.848</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">101.003</td>
+<td style="text-align: right;">67.261</td>
+<td style="text-align: right;">18.669</td>
+<td style="text-align: right;">259.851</td>
 </tr>
 </tbody>
 </table>
@@ -980,7 +985,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Heterogeneity between different groups can also be visualized.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_heterogeneity</span>(production, <span class="at">select =</span> <span class="st">"sales"</span>, <span class="at">group =</span> <span class="st">"year"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_heterogeneity</span>(production, <span class="at">select =</span> <span class="st">"sales"</span>, <span class="at">group =</span> <span class="st">"year"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -991,7 +996,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>For more detailed heterogeneity analysis, numeric variables can be decomposed into between and within components.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">decompose_numeric</span>(production, <span class="at">index =</span> <span class="st">"firm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">decompose_numeric</span>(production, <span class="at">index =</span> <span class="st">"firm"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Analyzing all numeric variables: year, sales, capital, labor</code></pre>
 </div>
@@ -1040,86 +1045,107 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td style="text-align: left;">sales</td>
 <td style="text-align: left;">overall</td>
-<td style="text-align: right;">69.756</td>
-<td style="text-align: right;">46.804</td>
-<td style="text-align: right;">8.321</td>
-<td style="text-align: right;">336.853</td>
+<td style="text-align: right;">68.402</td>
+<td style="text-align: right;">45.025</td>
+<td style="text-align: right;">11.999</td>
+<td style="text-align: right;">292.850</td>
 <td style="text-align: right;">154.000</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">sales</td>
 <td style="text-align: left;">between</td>
 <td style="text-align: right;">NA</td>
-<td style="text-align: right;">29.776</td>
-<td style="text-align: right;">25.772</td>
-<td style="text-align: right;">159.197</td>
+<td style="text-align: right;">29.060</td>
+<td style="text-align: right;">34.263</td>
+<td style="text-align: right;">166.364</td>
 <td style="text-align: right;">30.000</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">sales</td>
 <td style="text-align: left;">within</td>
 <td style="text-align: right;">NA</td>
-<td style="text-align: right;">35.862</td>
-<td style="text-align: right;">-28.397</td>
-<td style="text-align: right;">247.412</td>
+<td style="text-align: right;">34.127</td>
+<td style="text-align: right;">-12.444</td>
+<td style="text-align: right;">234.297</td>
 <td style="text-align: right;">5.133</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">capital</td>
 <td style="text-align: left;">overall</td>
-<td style="text-align: right;">32.490</td>
-<td style="text-align: right;">31.053</td>
-<td style="text-align: right;">0.968</td>
-<td style="text-align: right;">194.719</td>
+<td style="text-align: right;">33.152</td>
+<td style="text-align: right;">32.044</td>
+<td style="text-align: right;">2.030</td>
+<td style="text-align: right;">160.085</td>
 <td style="text-align: right;">154.000</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">capital</td>
 <td style="text-align: left;">between</td>
 <td style="text-align: right;">NA</td>
-<td style="text-align: right;">13.969</td>
-<td style="text-align: right;">8.671</td>
-<td style="text-align: right;">75.083</td>
+<td style="text-align: right;">17.414</td>
+<td style="text-align: right;">9.019</td>
+<td style="text-align: right;">74.225</td>
 <td style="text-align: right;">30.000</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">capital</td>
 <td style="text-align: left;">within</td>
 <td style="text-align: right;">NA</td>
-<td style="text-align: right;">27.701</td>
-<td style="text-align: right;">-22.444</td>
-<td style="text-align: right;">152.126</td>
+<td style="text-align: right;">27.072</td>
+<td style="text-align: right;">-25.567</td>
+<td style="text-align: right;">149.329</td>
 <td style="text-align: right;">5.133</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">labor</td>
 <td style="text-align: left;">overall</td>
-<td style="text-align: right;">79.329</td>
-<td style="text-align: right;">73.687</td>
-<td style="text-align: right;">4.097</td>
-<td style="text-align: right;">419.848</td>
+<td style="text-align: right;">76.883</td>
+<td style="text-align: right;">74.150</td>
+<td style="text-align: right;">5.972</td>
+<td style="text-align: right;">579.024</td>
 <td style="text-align: right;">154.000</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">labor</td>
 <td style="text-align: left;">between</td>
 <td style="text-align: right;">NA</td>
-<td style="text-align: right;">44.023</td>
-<td style="text-align: right;">24.606</td>
-<td style="text-align: right;">175.731</td>
+<td style="text-align: right;">41.068</td>
+<td style="text-align: right;">31.021</td>
+<td style="text-align: right;">190.645</td>
 <td style="text-align: right;">30.000</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">labor</td>
 <td style="text-align: left;">within</td>
 <td style="text-align: right;">NA</td>
-<td style="text-align: right;">59.561</td>
-<td style="text-align: right;">-77.709</td>
-<td style="text-align: right;">323.445</td>
+<td style="text-align: right;">61.202</td>
+<td style="text-align: right;">-58.040</td>
+<td style="text-align: right;">483.217</td>
 <td style="text-align: right;">5.133</td>
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+</div>
+<p>Sometimes it can be helpful to analyze demeaned versions of variables.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_demeaned</span>(production, <span class="at">select =</span> <span class="st">"sales"</span>, <span class="at">group =</span> <span class="st">"firm"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01_basic_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_demeaned</span>(production, <span class="at">select =</span> <span class="fu">c</span>(<span class="st">"labor"</span>, <span class="st">"sales"</span>), <span class="at">group =</span> <span class="st">"firm"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01_basic_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
 </div>
 </div>
@@ -1129,9 +1155,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The last group of functions is aimed at analyzing factor (categorical) variables, taking into account the nature of panel data.</p>
 <p>Factor variables can be decomposed into between and within components.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">decompose_factor</span>(production, <span class="at">index =</span> <span class="st">"firm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">decompose_factor</span>(production, <span class="at">index =</span> <span class="st">"firm"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Analyzing all factor variables: industry, ownership</code></pre>
+<pre><code>Analyzing all factor variables: industry, ownership, region</code></pre>
 </div>
 <div class="cell-output-display">
 <div class="kable-table">
@@ -1187,29 +1213,65 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td style="text-align: left;">ownership</td>
 <td style="text-align: left;">private</td>
-<td style="text-align: right;">76</td>
-<td style="text-align: right;">0.484</td>
-<td style="text-align: right;">16</td>
-<td style="text-align: right;">0.533</td>
-<td style="text-align: right;">0.898</td>
+<td style="text-align: right;">80</td>
+<td style="text-align: right;">0.510</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">0.567</td>
+<td style="text-align: right;">0.894</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">ownership</td>
 <td style="text-align: left;">public</td>
-<td style="text-align: right;">55</td>
-<td style="text-align: right;">0.350</td>
-<td style="text-align: right;">13</td>
-<td style="text-align: right;">0.433</td>
-<td style="text-align: right;">0.813</td>
+<td style="text-align: right;">36</td>
+<td style="text-align: right;">0.229</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">0.300</td>
+<td style="text-align: right;">0.787</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">ownership</td>
 <td style="text-align: left;">mixed</td>
-<td style="text-align: right;">26</td>
-<td style="text-align: right;">0.166</td>
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">0.261</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">0.333</td>
+<td style="text-align: right;">0.772</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">region</td>
+<td style="text-align: left;">west</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">0.242</td>
 <td style="text-align: right;">7</td>
 <td style="text-align: right;">0.233</td>
-<td style="text-align: right;">0.724</td>
+<td style="text-align: right;">1.000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">region</td>
+<td style="text-align: left;">east</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">0.255</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0.267</td>
+<td style="text-align: right;">1.000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">region</td>
+<td style="text-align: left;">north</td>
+<td style="text-align: right;">36</td>
+<td style="text-align: right;">0.229</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0.233</td>
+<td style="text-align: right;">1.000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">region</td>
+<td style="text-align: left;">south</td>
+<td style="text-align: right;">43</td>
+<td style="text-align: right;">0.274</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0.267</td>
+<td style="text-align: right;">1.000</td>
 </tr>
 </tbody>
 </table>
@@ -1218,7 +1280,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>One can also summarize transitions between states of a categorical (factor) variable.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize_transition</span>(production, <span class="at">select =</span> <span class="st">"industry"</span>, <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"firm"</span>, <span class="st">"year"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize_transition</span>(production, <span class="at">select =</span> <span class="st">"industry"</span>, <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"firm"</span>, <span class="st">"year"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>23 rows with NA values in 'industry' removed.</code></pre>
 </div>
@@ -1313,13 +1375,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

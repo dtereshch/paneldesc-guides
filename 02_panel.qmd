@@ -115,6 +115,16 @@ For more detailed heterogeneity analysis, numeric variables can be decomposed in
 decompose_numeric(panel)
 ```
 
+Sometimes it can be helpful to analyze demeaned versions of variables. 
+
+```{r}
+plot_demeaned(panel, select = "sales")
+```
+
+```{r}
+plot_demeaned(panel, select = c("labor", "sales"))
+```
+
 ## Factor variables analysis
 
 The last group of functions is aimed at analyzing factor (categorical) variables, taking into account the nature of panel data.
