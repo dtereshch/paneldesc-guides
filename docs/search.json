@@ -200,153 +200,213 @@
     ]
   },
   {
-    "objectID": "04_Stata.html",
-    "href": "04_Stata.html",
-    "title": "6  For Stata users",
+    "objectID": "04_processing.html",
+    "href": "04_processing.html",
+    "title": "6  Data Processing",
     "section": "",
-    "text": "6.1 Set up\nIn this example, the package functions are combined in such a way that the results obtained are more or less familiar to those users who are accustomed to using Stata.\nImport the package.\nlibrary(paneldesc)",
+    "text": "6.1 Set up\nAlthough the paneldesc package is primarily focused on descriptive analysis and panel data exploration, it also includes a set of functions for processing panel data. It may be relevant because sometimes data transformations are necessary for full analysis. This vignette presents the main capabilities of the paneldesc package for processing panel data.\nLoad the package.\nlibrary(paneldesc)",
     "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>For Stata users</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Data Processing</span>"
     ]
   },
   {
-    "objectID": "04_Stata.html#data-import",
-    "href": "04_Stata.html#data-import",
-    "title": "6  For Stata users",
+    "objectID": "04_processing.html#data-import",
+    "href": "04_processing.html#data-import",
+    "title": "6  Data Processing",
     "section": "6.2 Data import",
-    "text": "6.2 Data import\nImport the built-in dataset with simulated unbalanced panel data.\n\ndata(production)",
+    "text": "6.2 Data import\nThe package includes a simulated dataset called production.\n\ndata(production)\n\nIt contains information on 30 firms over up to 6 years, with variables such as sales, capital, labor, industry, ownership, and region. Missing values are present in some variables to mimic real‑world data.\n\nstr(production)\n\n'data.frame':   180 obs. of  8 variables:\n $ firm     : int  1 1 1 1 1 1 2 2 2 2 ...\n $ year     : int  1 2 3 4 5 6 1 2 3 4 ...\n $ sales    : num  33 38.7 39 31.6 NA ...\n $ capital  : num  6.29 5.03 6.82 17.94 NA ...\n $ labor    : num  49.7 65.1 73.9 26.9 NA ...\n $ industry : Factor w/ 3 levels \"Industry 1\",\"Industry 2\",..: 3 3 3 3 NA NA 3 3 2 2 ...\n $ ownership: Factor w/ 3 levels \"private\",\"public\",..: 1 1 1 1 NA NA 2 2 2 3 ...\n $ region   : Factor w/ 4 levels \"west\",\"east\",..: 1 1 1 1 NA NA 4 4 4 4 ...\n\n\nTo avoid repeatedly specifying the entity and time variables (firm and year), we create a panel_data object using make_panel(). This adds metadata that many subsequent functions will automatically use.\n\npanel &lt;- make_panel(production, index = c(\"firm\", \"year\"))",
     "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>For Stata users</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Data Processing</span>"
     ]
   },
   {
-    "objectID": "04_Stata.html#summarize",
-    "href": "04_Stata.html#summarize",
-    "title": "6  For Stata users",
-    "section": "6.3 summarize",
-    "text": "6.3 summarize\nYou can look at the simple descriptive statistics with summarize_numeric().\n\nsummarize_numeric(production)\n\nAnalyzing all numeric variables: firm, year, sales, capital, labor\n\n\n\n\n\n\nvariable\ncount\nmean\nstd\nmin\nmax\n\n\n\n\nfirm\n180\n15.500\n8.680\n1.000\n30.000\n\n\nyear\n180\n3.500\n1.713\n1.000\n6.000\n\n\nsales\n154\n68.402\n45.025\n11.999\n292.850\n\n\ncapital\n154\n33.152\n32.044\n2.030\n160.085\n\n\nlabor\n154\n76.883\n74.150\n5.972\n579.024",
+    "objectID": "04_processing.html#creating-balanced-panel-data",
+    "href": "04_processing.html#creating-balanced-panel-data",
+    "title": "6  Data Processing",
+    "section": "6.3 Creating balanced panel data",
+    "text": "6.3 Creating balanced panel data\nmake_balanced() allows to balance panel data using various options:\n\nkeeping only entities present in all time periods;\n\n\nbalance_entities &lt;- make_balanced(panel, balance = \"entities\")\ndim(balance_entities)\n\n[1] 96  8\n\n\n\nkeeping only time periods where all entities are present;\n\n\nbalance_periods &lt;- make_balanced(panel, balance = \"periods\")\ndim(balance_periods)\n\n[1] 30  8\n\n\n\ncreating a row for every entity‑time combination (if delta is supplied, the full time sequence including missing periods is used).\n\n\nbalance_rows &lt;- make_balanced(panel, delta = 1, balance = \"rows\")\ndim(balance_rows)\n\n[1] 180   8\n\n\nIn the latter case, the returned data frame is the same as the original one.",
     "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>For Stata users</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Data Processing</span>"
     ]
   },
   {
-    "objectID": "04_Stata.html#xtset",
-    "href": "04_Stata.html#xtset",
-    "title": "6  For Stata users",
-    "section": "6.4 xtset",
-    "text": "6.4 xtset\nYou can set up a panel structure in advance so that you don’t have to do it later each time you use other functions. Note that if delta is supplied, the function checks for omitted time periods. If such periods exist, they will be taken into account when other functions work with this argument.\n\npanel &lt;- make_panel(production, index = c(\"firm\", \"year\"), delta = 1)",
+    "objectID": "04_processing.html#reshaping-panel-data",
+    "href": "04_processing.html#reshaping-panel-data",
+    "title": "6  Data Processing",
+    "section": "6.4 Reshaping panel data",
+    "text": "6.4 Reshaping panel data\nA standard type of panel data transformation is reshaping from long format to wide format and vice versa.\nSince the original data frame is presented in long format, we can reshape it to wide format using make_wide(). Note that region variable is time-invariant, so it is better to declare it using static argument.\n\npanel_wide &lt;- make_wide(panel, static = \"region\")\nnames(panel_wide)\n\n [1] \"firm\"        \"sales_1\"     \"capital_1\"   \"labor_1\"     \"industry_1\" \n [6] \"ownership_1\" \"sales_2\"     \"capital_2\"   \"labor_2\"     \"industry_2\" \n[11] \"ownership_2\" \"sales_3\"     \"capital_3\"   \"labor_3\"     \"industry_3\" \n[16] \"ownership_3\" \"sales_4\"     \"capital_4\"   \"labor_4\"     \"industry_4\" \n[21] \"ownership_4\" \"sales_5\"     \"capital_5\"   \"labor_5\"     \"industry_5\" \n[26] \"ownership_5\" \"sales_6\"     \"capital_6\"   \"labor_6\"     \"industry_6\" \n[31] \"ownership_6\" \"region\"     \n\n\nNext, as an exercise, we can convert the wide format data we just obtained back to long format.\n\npanel_long &lt;- make_long(panel_wide, static = \"region\")\nnames(panel_long)\n\n[1] \"firm\"      \"year\"      \"sales\"     \"capital\"   \"labor\"     \"industry\" \n[7] \"ownership\" \"region\"   \n\n\nIn the latter case, the data frame is the same as the original one.",
     "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>For Stata users</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Data Processing</span>"
     ]
   },
   {
-    "objectID": "04_Stata.html#xtdes",
-    "href": "04_Stata.html#xtdes",
-    "title": "6  For Stata users",
-    "section": "6.5 xtdes",
-    "text": "6.5 xtdes\nxtdes command funcitonality can be reproduced by combining describe_dimensions(), describe_balance(), and describe_patterns() functions.\n\ndescribe_dimensions(panel)\n\n\n\n\n\nrows\nentities\nperiods\nvariables\n\n\n\n\n180\n30\n6\n6\n\n\n\n\n\n\n\ndescribe_balance(panel, detail = TRUE)\n\n\n\n\n\ndimension\nmean\nstd\nmin\np5\np25\np50\np75\np95\nmax\n\n\n\n\nentities\n26.167\n3.971\n19\n20.5\n25.25\n27\n28.75\n29.75\n30\n\n\nperiods\n5.233\n0.935\n3\n4.0\n4.25\n6\n6.00\n6.00\n6\n\n\n\n\n\n\n\ndescribe_patterns(panel)\n\n\n\n\n\npattern\n1\n2\n3\n4\n5\n6\ncount\nshare\n\n\n\n\n1\n1\n1\n1\n1\n1\n1\n16\n0.533\n\n\n2\n1\n1\n1\n1\n1\n0\n5\n0.167\n\n\n3\n1\n1\n1\n1\n0\n0\n3\n0.100\n\n\n4\n0\n0\n1\n1\n1\n1\n2\n0.067\n\n\n5\n0\n1\n1\n1\n1\n0\n2\n0.067\n\n\n6\n0\n1\n1\n1\n1\n1\n1\n0.033\n\n\n7\n1\n1\n1\n0\n0\n0\n1\n0.033",
+    "objectID": "04_processing.html#within-group-demeaning",
+    "href": "04_processing.html#within-group-demeaning",
+    "title": "6  Data Processing",
+    "section": "6.5 Within-group demeaning",
+    "text": "6.5 Within-group demeaning\nmake_demeaned() performs within-group demeaning (centering) for all numeric variables in a data frame.\n\ndemeaned &lt;- make_demeaned(panel)\n\nDemeaning numeric variables: sales, capital, labor\n\n\nThe returned dataframe has the same structure as the original one, but its numeric variables are transformed. The resulting dataframe can be used for descriptive analysis of the transformed data or for regression analysis.\n\nsummary(demeaned)\n\n      firm           year         sales             capital       \n Min.   : 1.0   Min.   :1.0   Min.   :-75.9166   Min.   :-58.719  \n 1st Qu.: 8.0   1st Qu.:2.0   1st Qu.:-22.7824   1st Qu.:-17.756  \n Median :15.5   Median :3.5   Median : -0.6208   Median : -2.802  \n Mean   :15.5   Mean   :3.5   Mean   :  0.0000   Mean   :  0.000  \n 3rd Qu.:23.0   3rd Qu.:5.0   3rd Qu.: 16.3642   3rd Qu.:  8.911  \n Max.   :30.0   Max.   :6.0   Max.   :163.1807   Max.   :110.610  \n                              NA's   :26         NA's   :26       \n     labor                industry    ownership    region  \n Min.   :-130.319   Industry 1:63   private:80   west :38  \n 1st Qu.: -31.447   Industry 2:45   public :36   east :40  \n Median :  -8.731   Industry 3:49   mixed  :41   north:36  \n Mean   :   0.000   NA's      :23   NA's   :23   south:43  \n 3rd Qu.:  17.989                                NA's :23  \n Max.   : 401.908                                          \n NA's   :26",
     "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>For Stata users</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Data Processing</span>"
     ]
   },
   {
-    "objectID": "04_Stata.html#xtsum",
-    "href": "04_Stata.html#xtsum",
-    "title": "6  For Stata users",
-    "section": "6.6 xtsum",
-    "text": "6.6 xtsum\nxtsum command funcitonality can be reproduced with decompose_numeric() function.\n\ndecompose_numeric(panel)\n\nAnalyzing all numeric variables: sales, capital, labor\n\n\n\n\n\n\nvariable\ndimension\nmean\nstd\nmin\nmax\ncount\n\n\n\n\nsales\noverall\n68.402\n45.025\n11.999\n292.850\n154.000\n\n\nsales\nbetween\nNA\n29.060\n34.263\n166.364\n30.000\n\n\nsales\nwithin\nNA\n34.127\n-12.444\n234.297\n5.133\n\n\ncapital\noverall\n33.152\n32.044\n2.030\n160.085\n154.000\n\n\ncapital\nbetween\nNA\n17.414\n9.019\n74.225\n30.000\n\n\ncapital\nwithin\nNA\n27.072\n-25.567\n149.329\n5.133\n\n\nlabor\noverall\n76.883\n74.150\n5.972\n579.024\n154.000\n\n\nlabor\nbetween\nNA\n41.068\n31.021\n190.645\n30.000\n\n\nlabor\nwithin\nNA\n61.202\n-58.040\n483.217\n5.133",
+    "objectID": "04_processing.html#adding-group-means",
+    "href": "04_processing.html#adding-group-means",
+    "title": "6  Data Processing",
+    "section": "6.6 Adding group means",
+    "text": "6.6 Adding group means\nmake_mundlak() adds group means of numeric variables to a data frame, which can be used for Mundlak-style (correlated random effects) modeling or for other purposes where within-group averages are needed.\n\nmundlak &lt;- make_mundlak(panel)\n\nAdding group means for numeric variables: sales, capital, labor\n\nnames(mundlak)\n\n [1] \"firm\"              \"year\"              \"sales\"            \n [4] \"capital\"           \"labor\"             \"industry\"         \n [7] \"ownership\"         \"region\"            \"sales_mean_firm\"  \n[10] \"sales_mean_year\"   \"capital_mean_firm\" \"capital_mean_year\"\n[13] \"labor_mean_firm\"   \"labor_mean_year\"",
     "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>For Stata users</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Data Processing</span>"
     ]
   },
   {
-    "objectID": "04_Stata.html#xttab",
-    "href": "04_Stata.html#xttab",
-    "title": "6  For Stata users",
-    "section": "6.7 xttab",
-    "text": "6.7 xttab\nxttab command funcitonality can be reproduced with decompose_factor() function.\n\ndecompose_factor(panel)\n\nAnalyzing all factor variables: industry, ownership, region\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nvariable\ncategory\ncount_overall\nshare_overall\ncount_between\nshare_between\nshare_within\n\n\n\n\nindustry\nIndustry 1\n63\n0.401\n13\n0.433\n0.918\n\n\nindustry\nIndustry 2\n45\n0.287\n11\n0.367\n0.809\n\n\nindustry\nIndustry 3\n49\n0.312\n10\n0.333\n0.917\n\n\nownership\nprivate\n80\n0.510\n17\n0.567\n0.894\n\n\nownership\npublic\n36\n0.229\n9\n0.300\n0.787\n\n\nownership\nmixed\n41\n0.261\n10\n0.333\n0.772\n\n\nregion\nwest\n38\n0.242\n7\n0.233\n1.000\n\n\nregion\neast\n40\n0.255\n8\n0.267\n1.000\n\n\nregion\nnorth\n36\n0.229\n7\n0.233\n1.000\n\n\nregion\nsouth\n43\n0.274\n8\n0.267\n1.000",
-    "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>For Stata users</span>"
-    ]
-  },
-  {
-    "objectID": "04_Stata.html#xttrans",
-    "href": "04_Stata.html#xttrans",
-    "title": "6  For Stata users",
-    "section": "6.8 xttrans",
-    "text": "6.8 xttrans\nxttrans command funcitonality can be reproduced with summarize_transition() function.\n\nsummarize_transition(panel, select = \"industry\")\n\n23 rows with NA values in 'industry' removed.\n\n\n\n\n\n\nfrom_to\nIndustry 1\nIndustry 2\nIndustry 3\n\n\n\n\nIndustry 1\n1.000\n0.000\n0.000\n\n\nIndustry 2\n0.054\n0.919\n0.027\n\n\nIndustry 3\n0.000\n0.025\n0.975",
-    "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>For Stata users</span>"
-    ]
-  },
-  {
-    "objectID": "05_comparison.html",
-    "href": "05_comparison.html",
-    "title": "7  Comparison with other packages",
+    "objectID": "05_Stata.html",
+    "href": "05_Stata.html",
+    "title": "7  For Stata users",
     "section": "",
-    "text": "7.1 Set up\nAlmost all of this package’s functionality can be replicated using individual functions from other packages. However, I believe the main advantage of the paneldesc package is that it combines all the functions necessary for panel data analysis and implements them in a single format. Below is a comparison with individual functions from other packages.\nImport packages to compare.\nlibrary(paneldesc)\nlibrary(gplots)\nlibrary(modelsummary)\nlibrary(plm)\nlibrary(pdynmc)\nlibrary(xtsum)",
+    "text": "7.1 Set up\nIn this example, the package functions are combined in such a way that the results obtained are more or less familiar to those users who are accustomed to using Stata.\nImport the package.\nlibrary(paneldesc)",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Comparison with other packages</span>"
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>For Stata users</span>"
     ]
   },
   {
-    "objectID": "05_comparison.html#data-import",
-    "href": "05_comparison.html#data-import",
-    "title": "7  Comparison with other packages",
+    "objectID": "05_Stata.html#data-import",
+    "href": "05_Stata.html#data-import",
+    "title": "7  For Stata users",
     "section": "7.2 Data import",
-    "text": "7.2 Data import\nImport the built-in dataset with simulated unbalanced panel data.\n\ndata(production)\n\nCreate unbalanced panel for the analysis purposes.\n\nunbalanced &lt;- production[rowSums(!is.na(production[, c(\"sales\", \"capital\", \"labor\", \"industry\")])) &gt; 0, ]",
+    "text": "7.2 Data import\nImport the built-in dataset with simulated unbalanced panel data.\n\ndata(production)",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Comparison with other packages</span>"
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>For Stata users</span>"
     ]
   },
   {
-    "objectID": "05_comparison.html#paneldesc-vs.-pdynmc",
-    "href": "05_comparison.html#paneldesc-vs.-pdynmc",
-    "title": "7  Comparison with other packages",
-    "section": "7.3 paneldesc vs. pdynmc",
-    "text": "7.3 paneldesc vs. pdynmc\n\npaneldesc::plot_patterns(production, index = c(\"firm\", \"year\"))\n\n\n\n\n\n\n\n\n\npdynmc::strucUPD.plot(unbalanced, i.name = \"firm\", t.name = \"year\")",
+    "objectID": "05_Stata.html#summarize",
+    "href": "05_Stata.html#summarize",
+    "title": "7  For Stata users",
+    "section": "7.3 summarize",
+    "text": "7.3 summarize\nYou can look at the simple descriptive statistics with summarize_numeric().\n\nsummarize_numeric(production)\n\nAnalyzing all numeric variables: firm, year, sales, capital, labor\n\n\n\n\n\n\nvariable\ncount\nmean\nstd\nmin\nmax\n\n\n\n\nfirm\n180\n15.500\n8.680\n1.000\n30.000\n\n\nyear\n180\n3.500\n1.713\n1.000\n6.000\n\n\nsales\n154\n68.402\n45.025\n11.999\n292.850\n\n\ncapital\n154\n33.152\n32.044\n2.030\n160.085\n\n\nlabor\n154\n76.883\n74.150\n5.972\n579.024",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Comparison with other packages</span>"
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>For Stata users</span>"
     ]
   },
   {
-    "objectID": "05_comparison.html#paneldesc-vs.-modelsummary",
-    "href": "05_comparison.html#paneldesc-vs.-modelsummary",
-    "title": "7  Comparison with other packages",
-    "section": "7.4 paneldesc vs. modelsummary",
-    "text": "7.4 paneldesc vs. modelsummary\n\npaneldesc::summarize_numeric(production, select = c(\"capital\", \"labor\"), group = \"year\")\n\n\n\n\n\nyear\nvariable\ncount\nmean\nstd\nmin\nmax\n\n\n\n\n1\ncapital\n25\n40.154\n39.004\n3.206\n148.942\n\n\n1\nlabor\n24\n74.349\n69.766\n18.414\n333.377\n\n\n2\ncapital\n28\n30.210\n30.596\n5.032\n122.332\n\n\n2\nlabor\n28\n81.758\n66.571\n17.666\n327.581\n\n\n3\ncapital\n28\n30.111\n30.372\n2.030\n121.740\n\n\n3\nlabor\n29\n82.256\n106.869\n8.172\n579.024\n\n\n4\ncapital\n28\n34.889\n32.046\n7.146\n148.994\n\n\n4\nlabor\n29\n55.533\n46.448\n5.972\n207.572\n\n\n5\ncapital\n26\n28.076\n21.871\n4.637\n78.244\n\n\n5\nlabor\n25\n74.056\n71.255\n15.879\n266.829\n\n\n6\ncapital\n19\n37.145\n39.400\n3.690\n160.085\n\n\n6\nlabor\n19\n101.003\n67.261\n18.669\n259.851\n\n\n\n\n\n\n\nmodelsummary::datasummary(Factor(year) * (capital + labor) ~ N + Mean + SD + Min + Max, data = production)\n\n\n\n    \n\n    \n\n    \n    \n    \n      \n        \n        \n              \n                year\n                 \n                N\n                Mean\n                SD\n                Min\n                Max\n              \n        \n        \n        \n                \n                  1\n                  capital\n                  25\n                  40.15\n                  39.00\n                  3.21\n                  148.94\n                \n                \n                  \n                  labor\n                  24\n                  74.35\n                  69.77\n                  18.41\n                  333.38\n                \n                \n                  2\n                  capital\n                  28\n                  30.21\n                  30.60\n                  5.03\n                  122.33\n                \n                \n                  \n                  labor\n                  28\n                  81.76\n                  66.57\n                  17.67\n                  327.58\n                \n                \n                  3\n                  capital\n                  28\n                  30.11\n                  30.37\n                  2.03\n                  121.74\n                \n                \n                  \n                  labor\n                  29\n                  82.26\n                  106.87\n                  8.17\n                  579.02\n                \n                \n                  4\n                  capital\n                  28\n                  34.89\n                  32.05\n                  7.15\n                  148.99\n                \n                \n                  \n                  labor\n                  29\n                  55.53\n                  46.45\n                  5.97\n                  207.57\n                \n                \n                  5\n                  capital\n                  26\n                  28.08\n                  21.87\n                  4.64\n                  78.24\n                \n                \n                  \n                  labor\n                  25\n                  74.06\n                  71.26\n                  15.88\n                  266.83\n                \n                \n                  6\n                  capital\n                  19\n                  37.15\n                  39.40\n                  3.69\n                  160.08\n                \n                \n                  \n                  labor\n                  19\n                  101.00\n                  67.26\n                  18.67\n                  259.85",
+    "objectID": "05_Stata.html#xtset",
+    "href": "05_Stata.html#xtset",
+    "title": "7  For Stata users",
+    "section": "7.4 xtset",
+    "text": "7.4 xtset\nYou can set up a panel structure in advance so that you don’t have to do it later each time you use other functions. Note that if delta is supplied, the function checks for omitted time periods. If such periods exist, they will be taken into account when other functions work with this argument.\n\npanel &lt;- make_panel(production, index = c(\"firm\", \"year\"), delta = 1)",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Comparison with other packages</span>"
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>For Stata users</span>"
     ]
   },
   {
-    "objectID": "05_comparison.html#paneldesc-vs.-gplots",
-    "href": "05_comparison.html#paneldesc-vs.-gplots",
-    "title": "7  Comparison with other packages",
-    "section": "7.5 paneldesc vs. gplots",
-    "text": "7.5 paneldesc vs. gplots\n\npaneldesc::plot_heterogeneity(production, select = \"sales\", group = \"year\")\n\n\n\n\n\n\n\n\n\ngplots::plotmeans(sales ~ year, production)",
+    "objectID": "05_Stata.html#xtdes",
+    "href": "05_Stata.html#xtdes",
+    "title": "7  For Stata users",
+    "section": "7.5 xtdes",
+    "text": "7.5 xtdes\nxtdes command funcitonality can be reproduced by combining describe_dimensions(), describe_balance(), and describe_patterns() functions.\n\ndescribe_dimensions(panel)\n\n\n\n\n\nrows\nentities\nperiods\nvariables\n\n\n\n\n180\n30\n6\n6\n\n\n\n\n\n\n\ndescribe_balance(panel, detail = TRUE)\n\n\n\n\n\ndimension\nmean\nstd\nmin\np5\np25\np50\np75\np95\nmax\n\n\n\n\nentities\n26.167\n3.971\n19\n20.5\n25.25\n27\n28.75\n29.75\n30\n\n\nperiods\n5.233\n0.935\n3\n4.0\n4.25\n6\n6.00\n6.00\n6\n\n\n\n\n\n\n\ndescribe_patterns(panel)\n\n\n\n\n\npattern\n1\n2\n3\n4\n5\n6\ncount\nshare\n\n\n\n\n1\n1\n1\n1\n1\n1\n1\n16\n0.533\n\n\n2\n1\n1\n1\n1\n1\n0\n5\n0.167\n\n\n3\n1\n1\n1\n1\n0\n0\n3\n0.100\n\n\n4\n0\n0\n1\n1\n1\n1\n2\n0.067\n\n\n5\n0\n1\n1\n1\n1\n0\n2\n0.067\n\n\n6\n0\n1\n1\n1\n1\n1\n1\n0.033\n\n\n7\n1\n1\n1\n0\n0\n0\n1\n0.033",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Comparison with other packages</span>"
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>For Stata users</span>"
     ]
   },
   {
-    "objectID": "05_comparison.html#paneldesc-vs.-xtsum",
-    "href": "05_comparison.html#paneldesc-vs.-xtsum",
-    "title": "7  Comparison with other packages",
-    "section": "7.6 paneldesc vs. xtsum",
-    "text": "7.6 paneldesc vs. xtsum\n\npaneldesc::decompose_numeric(production, select = c(\"sales\", \"capital\", \"labor\"), index = \"firm\")\n\n\n\n\n\nvariable\ndimension\nmean\nstd\nmin\nmax\ncount\n\n\n\n\nsales\noverall\n68.402\n45.025\n11.999\n292.850\n154.000\n\n\nsales\nbetween\nNA\n29.060\n34.263\n166.364\n30.000\n\n\nsales\nwithin\nNA\n34.127\n-12.444\n234.297\n5.133\n\n\ncapital\noverall\n33.152\n32.044\n2.030\n160.085\n154.000\n\n\ncapital\nbetween\nNA\n17.414\n9.019\n74.225\n30.000\n\n\ncapital\nwithin\nNA\n27.072\n-25.567\n149.329\n5.133\n\n\nlabor\noverall\n76.883\n74.150\n5.972\n579.024\n154.000\n\n\nlabor\nbetween\nNA\n41.068\n31.021\n190.645\n30.000\n\n\nlabor\nwithin\nNA\n61.202\n-58.040\n483.217\n5.133\n\n\n\n\n\n\n\nxtsum::xtsum(production, variables = c(\"sales\", \"capital\", \"labor\"), id = \"firm\", t = \"year\", na.rm = TRUE)\n\n\n\n\nVariable\nDim\nMean\nSD\nMin\nMax\nObservations\n\n\n\n\n___________\n_________\n\n\n\n\n\n\n\nsales\noverall\n68.402\n45.025\n11.999\n292.85\nN = 154\n\n\n\nbetween\n\n29.06\n34.263\n166.364\nn = 30\n\n\n\nwithin\n\n34.127\n-12.444\n234.297\nT = 5.133\n\n\n___________\n_________\n\n\n\n\n\n\n\ncapital\noverall\n33.152\n32.044\n2.03\n160.085\nN = 154\n\n\n\nbetween\n\n17.414\n9.019\n74.225\nn = 30\n\n\n\nwithin\n\n27.072\n-25.567\n149.329\nT = 5.133\n\n\n___________\n_________\n\n\n\n\n\n\n\nlabor\noverall\n76.883\n74.15\n5.972\n579.024\nN = 154\n\n\n\nbetween\n\n41.068\n31.021\n190.645\nn = 30\n\n\n\nwithin\n\n61.202\n-58.04\n483.217\nT = 5.133",
+    "objectID": "05_Stata.html#xtsum",
+    "href": "05_Stata.html#xtsum",
+    "title": "7  For Stata users",
+    "section": "7.6 xtsum",
+    "text": "7.6 xtsum\nxtsum command funcitonality can be reproduced with decompose_numeric() function.\n\ndecompose_numeric(panel)\n\nAnalyzing all numeric variables: sales, capital, labor\n\n\n\n\n\n\nvariable\ndimension\nmean\nstd\nmin\nmax\ncount\n\n\n\n\nsales\noverall\n68.402\n45.025\n11.999\n292.850\n154.000\n\n\nsales\nbetween\nNA\n29.060\n34.263\n166.364\n30.000\n\n\nsales\nwithin\nNA\n34.127\n-12.444\n234.297\n5.133\n\n\ncapital\noverall\n33.152\n32.044\n2.030\n160.085\n154.000\n\n\ncapital\nbetween\nNA\n17.414\n9.019\n74.225\n30.000\n\n\ncapital\nwithin\nNA\n27.072\n-25.567\n149.329\n5.133\n\n\nlabor\noverall\n76.883\n74.150\n5.972\n579.024\n154.000\n\n\nlabor\nbetween\nNA\n41.068\n31.021\n190.645\n30.000\n\n\nlabor\nwithin\nNA\n61.202\n-58.040\n483.217\n5.133",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Comparison with other packages</span>"
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>For Stata users</span>"
     ]
   },
   {
-    "objectID": "05_comparison.html#paneldesc-vs.-plm",
-    "href": "05_comparison.html#paneldesc-vs.-plm",
-    "title": "7  Comparison with other packages",
-    "section": "7.7 paneldesc vs. plm",
-    "text": "7.7 paneldesc vs. plm\n\npaneldesc_bal_1 &lt;- paneldesc::make_balanced(unbalanced, index = c(\"firm\", \"year\"), balance = \"entities\")\ndim(paneldesc_bal_1)\n\n[1] 96  8\n\n\n\npaneldesc_bal_2 &lt;- paneldesc::make_balanced(unbalanced, index = c(\"firm\", \"year\"), balance = \"periods\")\ndim(paneldesc_bal_2)\n\n[1] 30  8\n\n\n\npaneldesc_bal_3 &lt;- paneldesc::make_balanced(unbalanced, index = c(\"firm\", \"year\"), balance = \"rows\")\ndim(paneldesc_bal_3)\n\n[1] 180   8\n\n\n\nunbalanced_pdata &lt;- plm::pdata.frame(unbalanced, index = c(\"firm\", \"year\"))\n\n\nplm_bal_1 &lt;- plm::make.pbalanced(unbalanced_pdata, balance.type = \"shared.individuals\")\ndim(plm_bal_1)\n\n[1] 96  8\n\n\n\nplm_bal_2 &lt;- plm::make.pbalanced(unbalanced_pdata, balance.type = \"shared.times\")\ndim(plm_bal_2)\n\n[1] 30  8\n\n\n\nplm_bal_3 &lt;- plm::make.pbalanced(unbalanced_pdata, balance.type = \"fill\")\ndim(plm_bal_3)\n\n[1] 180   8",
+    "objectID": "05_Stata.html#xttab",
+    "href": "05_Stata.html#xttab",
+    "title": "7  For Stata users",
+    "section": "7.7 xttab",
+    "text": "7.7 xttab\nxttab command funcitonality can be reproduced with decompose_factor() function.\n\ndecompose_factor(panel)\n\nAnalyzing all factor variables: industry, ownership, region\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nvariable\ncategory\ncount_overall\nshare_overall\ncount_between\nshare_between\nshare_within\n\n\n\n\nindustry\nIndustry 1\n63\n0.401\n13\n0.433\n0.918\n\n\nindustry\nIndustry 2\n45\n0.287\n11\n0.367\n0.809\n\n\nindustry\nIndustry 3\n49\n0.312\n10\n0.333\n0.917\n\n\nownership\nprivate\n80\n0.510\n17\n0.567\n0.894\n\n\nownership\npublic\n36\n0.229\n9\n0.300\n0.787\n\n\nownership\nmixed\n41\n0.261\n10\n0.333\n0.772\n\n\nregion\nwest\n38\n0.242\n7\n0.233\n1.000\n\n\nregion\neast\n40\n0.255\n8\n0.267\n1.000\n\n\nregion\nnorth\n36\n0.229\n7\n0.233\n1.000\n\n\nregion\nsouth\n43\n0.274\n8\n0.267\n1.000",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Comparison with other packages</span>"
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>For Stata users</span>"
+    ]
+  },
+  {
+    "objectID": "05_Stata.html#xttrans",
+    "href": "05_Stata.html#xttrans",
+    "title": "7  For Stata users",
+    "section": "7.8 xttrans",
+    "text": "7.8 xttrans\nxttrans command funcitonality can be reproduced with summarize_transition() function.\n\nsummarize_transition(panel, select = \"industry\")\n\n23 rows with NA values in 'industry' removed.\n\n\n\n\n\n\nfrom_to\nIndustry 1\nIndustry 2\nIndustry 3\n\n\n\n\nIndustry 1\n1.000\n0.000\n0.000\n\n\nIndustry 2\n0.054\n0.919\n0.027\n\n\nIndustry 3\n0.000\n0.025\n0.975",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>For Stata users</span>"
+    ]
+  },
+  {
+    "objectID": "06_comparison.html",
+    "href": "06_comparison.html",
+    "title": "8  Comparison with other packages",
+    "section": "",
+    "text": "8.1 Set up\nAlmost all of this package’s functionality can be replicated using individual functions from other packages. However, I believe the main advantage of the paneldesc package is that it combines all the functions necessary for panel data analysis and implements them in a single format. Below is a comparison with individual functions from other packages.\nImport packages to compare.\nlibrary(paneldesc)\nlibrary(gplots)\nlibrary(modelsummary)\nlibrary(plm)\nlibrary(pdynmc)\nlibrary(xtsum)",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Comparison with other packages</span>"
+    ]
+  },
+  {
+    "objectID": "06_comparison.html#data-import",
+    "href": "06_comparison.html#data-import",
+    "title": "8  Comparison with other packages",
+    "section": "8.2 Data import",
+    "text": "8.2 Data import\nImport the built-in dataset with simulated unbalanced panel data.\n\ndata(production)\n\nCreate unbalanced panel for the analysis purposes.\n\nunbalanced &lt;- production[rowSums(!is.na(production[, c(\"sales\", \"capital\", \"labor\", \"industry\")])) &gt; 0, ]",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Comparison with other packages</span>"
+    ]
+  },
+  {
+    "objectID": "06_comparison.html#paneldesc-vs.-pdynmc",
+    "href": "06_comparison.html#paneldesc-vs.-pdynmc",
+    "title": "8  Comparison with other packages",
+    "section": "8.3 paneldesc vs. pdynmc",
+    "text": "8.3 paneldesc vs. pdynmc\n\npaneldesc::plot_patterns(production, index = c(\"firm\", \"year\"))\n\n\n\n\n\n\n\n\n\npdynmc::strucUPD.plot(unbalanced, i.name = \"firm\", t.name = \"year\")",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Comparison with other packages</span>"
+    ]
+  },
+  {
+    "objectID": "06_comparison.html#paneldesc-vs.-modelsummary",
+    "href": "06_comparison.html#paneldesc-vs.-modelsummary",
+    "title": "8  Comparison with other packages",
+    "section": "8.4 paneldesc vs. modelsummary",
+    "text": "8.4 paneldesc vs. modelsummary\n\npaneldesc::summarize_numeric(production, select = c(\"capital\", \"labor\"), group = \"year\")\n\n\n\n\n\nyear\nvariable\ncount\nmean\nstd\nmin\nmax\n\n\n\n\n1\ncapital\n25\n40.154\n39.004\n3.206\n148.942\n\n\n1\nlabor\n24\n74.349\n69.766\n18.414\n333.377\n\n\n2\ncapital\n28\n30.210\n30.596\n5.032\n122.332\n\n\n2\nlabor\n28\n81.758\n66.571\n17.666\n327.581\n\n\n3\ncapital\n28\n30.111\n30.372\n2.030\n121.740\n\n\n3\nlabor\n29\n82.256\n106.869\n8.172\n579.024\n\n\n4\ncapital\n28\n34.889\n32.046\n7.146\n148.994\n\n\n4\nlabor\n29\n55.533\n46.448\n5.972\n207.572\n\n\n5\ncapital\n26\n28.076\n21.871\n4.637\n78.244\n\n\n5\nlabor\n25\n74.056\n71.255\n15.879\n266.829\n\n\n6\ncapital\n19\n37.145\n39.400\n3.690\n160.085\n\n\n6\nlabor\n19\n101.003\n67.261\n18.669\n259.851\n\n\n\n\n\n\n\nmodelsummary::datasummary(Factor(year) * (capital + labor) ~ N + Mean + SD + Min + Max, data = production)\n\n\n\n    \n\n    \n\n    \n    \n    \n      \n        \n        \n              \n                year\n                 \n                N\n                Mean\n                SD\n                Min\n                Max\n              \n        \n        \n        \n                \n                  1\n                  capital\n                  25\n                  40.15\n                  39.00\n                  3.21\n                  148.94\n                \n                \n                  \n                  labor\n                  24\n                  74.35\n                  69.77\n                  18.41\n                  333.38\n                \n                \n                  2\n                  capital\n                  28\n                  30.21\n                  30.60\n                  5.03\n                  122.33\n                \n                \n                  \n                  labor\n                  28\n                  81.76\n                  66.57\n                  17.67\n                  327.58\n                \n                \n                  3\n                  capital\n                  28\n                  30.11\n                  30.37\n                  2.03\n                  121.74\n                \n                \n                  \n                  labor\n                  29\n                  82.26\n                  106.87\n                  8.17\n                  579.02\n                \n                \n                  4\n                  capital\n                  28\n                  34.89\n                  32.05\n                  7.15\n                  148.99\n                \n                \n                  \n                  labor\n                  29\n                  55.53\n                  46.45\n                  5.97\n                  207.57\n                \n                \n                  5\n                  capital\n                  26\n                  28.08\n                  21.87\n                  4.64\n                  78.24\n                \n                \n                  \n                  labor\n                  25\n                  74.06\n                  71.26\n                  15.88\n                  266.83\n                \n                \n                  6\n                  capital\n                  19\n                  37.15\n                  39.40\n                  3.69\n                  160.08\n                \n                \n                  \n                  labor\n                  19\n                  101.00\n                  67.26\n                  18.67\n                  259.85",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Comparison with other packages</span>"
+    ]
+  },
+  {
+    "objectID": "06_comparison.html#paneldesc-vs.-gplots",
+    "href": "06_comparison.html#paneldesc-vs.-gplots",
+    "title": "8  Comparison with other packages",
+    "section": "8.5 paneldesc vs. gplots",
+    "text": "8.5 paneldesc vs. gplots\n\npaneldesc::plot_heterogeneity(production, select = \"sales\", group = \"year\")\n\n\n\n\n\n\n\n\n\ngplots::plotmeans(sales ~ year, production)",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Comparison with other packages</span>"
+    ]
+  },
+  {
+    "objectID": "06_comparison.html#paneldesc-vs.-xtsum",
+    "href": "06_comparison.html#paneldesc-vs.-xtsum",
+    "title": "8  Comparison with other packages",
+    "section": "8.6 paneldesc vs. xtsum",
+    "text": "8.6 paneldesc vs. xtsum\n\npaneldesc::decompose_numeric(production, select = c(\"sales\", \"capital\", \"labor\"), index = \"firm\")\n\n\n\n\n\nvariable\ndimension\nmean\nstd\nmin\nmax\ncount\n\n\n\n\nsales\noverall\n68.402\n45.025\n11.999\n292.850\n154.000\n\n\nsales\nbetween\nNA\n29.060\n34.263\n166.364\n30.000\n\n\nsales\nwithin\nNA\n34.127\n-12.444\n234.297\n5.133\n\n\ncapital\noverall\n33.152\n32.044\n2.030\n160.085\n154.000\n\n\ncapital\nbetween\nNA\n17.414\n9.019\n74.225\n30.000\n\n\ncapital\nwithin\nNA\n27.072\n-25.567\n149.329\n5.133\n\n\nlabor\noverall\n76.883\n74.150\n5.972\n579.024\n154.000\n\n\nlabor\nbetween\nNA\n41.068\n31.021\n190.645\n30.000\n\n\nlabor\nwithin\nNA\n61.202\n-58.040\n483.217\n5.133\n\n\n\n\n\n\n\nxtsum::xtsum(production, variables = c(\"sales\", \"capital\", \"labor\"), id = \"firm\", t = \"year\", na.rm = TRUE)\n\n\n\n\nVariable\nDim\nMean\nSD\nMin\nMax\nObservations\n\n\n\n\n___________\n_________\n\n\n\n\n\n\n\nsales\noverall\n68.402\n45.025\n11.999\n292.85\nN = 154\n\n\n\nbetween\n\n29.06\n34.263\n166.364\nn = 30\n\n\n\nwithin\n\n34.127\n-12.444\n234.297\nT = 5.133\n\n\n___________\n_________\n\n\n\n\n\n\n\ncapital\noverall\n33.152\n32.044\n2.03\n160.085\nN = 154\n\n\n\nbetween\n\n17.414\n9.019\n74.225\nn = 30\n\n\n\nwithin\n\n27.072\n-25.567\n149.329\nT = 5.133\n\n\n___________\n_________\n\n\n\n\n\n\n\nlabor\noverall\n76.883\n74.15\n5.972\n579.024\nN = 154\n\n\n\nbetween\n\n41.068\n31.021\n190.645\nn = 30\n\n\n\nwithin\n\n61.202\n-58.04\n483.217\nT = 5.133",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Comparison with other packages</span>"
+    ]
+  },
+  {
+    "objectID": "06_comparison.html#paneldesc-vs.-plm",
+    "href": "06_comparison.html#paneldesc-vs.-plm",
+    "title": "8  Comparison with other packages",
+    "section": "8.7 paneldesc vs. plm",
+    "text": "8.7 paneldesc vs. plm\n\npaneldesc_bal_1 &lt;- paneldesc::make_balanced(unbalanced, index = c(\"firm\", \"year\"), balance = \"entities\")\ndim(paneldesc_bal_1)\n\n[1] 96  8\n\n\n\npaneldesc_bal_2 &lt;- paneldesc::make_balanced(unbalanced, index = c(\"firm\", \"year\"), balance = \"periods\")\ndim(paneldesc_bal_2)\n\n[1] 30  8\n\n\n\npaneldesc_bal_3 &lt;- paneldesc::make_balanced(unbalanced, index = c(\"firm\", \"year\"), balance = \"rows\")\ndim(paneldesc_bal_3)\n\n[1] 180   8\n\n\n\nunbalanced_pdata &lt;- plm::pdata.frame(unbalanced, index = c(\"firm\", \"year\"))\n\n\nplm_bal_1 &lt;- plm::make.pbalanced(unbalanced_pdata, balance.type = \"shared.individuals\")\ndim(plm_bal_1)\n\n[1] 96  8\n\n\n\nplm_bal_2 &lt;- plm::make.pbalanced(unbalanced_pdata, balance.type = \"shared.times\")\ndim(plm_bal_2)\n\n[1] 30  8\n\n\n\nplm_bal_3 &lt;- plm::make.pbalanced(unbalanced_pdata, balance.type = \"fill\")\ndim(plm_bal_3)\n\n[1] 180   8",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Comparison with other packages</span>"
     ]
   }
 ]

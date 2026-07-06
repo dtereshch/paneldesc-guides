@@ -11,8 +11,9 @@ book:
     - 01_basic.qmd
     - 02_panel.qmd
     - 03_extend.qmd
-    - 04_Stata.qmd
-    - 05_comparison.qmd
+    - 04_processing.qmd
+    - 05_Stata.qmd
+    - 06_comparison.qmd
 
 
 format:
