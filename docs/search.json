@@ -340,6 +340,26 @@
     ]
   },
   {
+    "objectID": "05_Stata.html#reshape",
+    "href": "05_Stata.html#reshape",
+    "title": "7  For Stata users",
+    "section": "7.9 reshape",
+    "text": "7.9 reshape\nreshape command funcitonality can be reproduced with make_wide() and make_long() functions. Unlike the Stata command, these functions do not require you to specify all variables to transform (all variables are transformed by default), but they do allow to specify time-invariant variables, if any.\n\nwide &lt;- make_wide(panel, static = \"region\")\nnames(wide)\n\n [1] \"firm\"        \"sales_1\"     \"capital_1\"   \"labor_1\"     \"industry_1\" \n [6] \"ownership_1\" \"sales_2\"     \"capital_2\"   \"labor_2\"     \"industry_2\" \n[11] \"ownership_2\" \"sales_3\"     \"capital_3\"   \"labor_3\"     \"industry_3\" \n[16] \"ownership_3\" \"sales_4\"     \"capital_4\"   \"labor_4\"     \"industry_4\" \n[21] \"ownership_4\" \"sales_5\"     \"capital_5\"   \"labor_5\"     \"industry_5\" \n[26] \"ownership_5\" \"sales_6\"     \"capital_6\"   \"labor_6\"     \"industry_6\" \n[31] \"ownership_6\" \"region\"     \n\n\n\nlong &lt;- make_long(wide, static = \"region\")\nnames(long)\n\n[1] \"firm\"      \"year\"      \"sales\"     \"capital\"   \"labor\"     \"industry\" \n[7] \"ownership\" \"region\"",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>For Stata users</span>"
+    ]
+  },
+  {
+    "objectID": "05_Stata.html#xtdata",
+    "href": "05_Stata.html#xtdata",
+    "title": "7  For Stata users",
+    "section": "7.10 xtdata",
+    "text": "7.10 xtdata\nxtdata command funcitonality can be partially reproduced with make_demeaned() function. Particularly, xtdata, fe is reproduced by passing only firm identifier to the function.\n\nfirm_demeaned &lt;- make_demeaned(production, group = \"firm\")\n\nDemeaning numeric variables: year, sales, capital, labor\n\n\nUnlike Stata command, make_demeaned() allows you to demean variables not only within entities, but using various grouping patterns. For example, when data frame has panel attributes, it will be demeaned using both entities and time identifiers. Grouping by more than two variables is also available.\n\nfirm_year_demeaned &lt;- make_demeaned(panel)\n\nDemeaning numeric variables: sales, capital, labor\n\n\nxtdata, be and xtdata, re functionality is not reproduced directly. However, with some additional efforts, xtdata, be can be replicated with make_mundlak() and summarize_numeric() as both these functions allow to calculate within-group means.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>For Stata users</span>"
+    ]
+  },
+  {
     "objectID": "06_comparison.html",
     "href": "06_comparison.html",
     "title": "8  Comparison with other packages",

@@ -76,3 +76,33 @@ decompose_factor(panel)
 ```{r}
 summarize_transition(panel, select = "industry")
 ```
+
+## reshape
+
+`reshape` command funcitonality can be reproduced with `make_wide()` and `make_long()` functions. Unlike the Stata command, these functions do not require you to specify all variables to transform (all variables are transformed by default), but they do allow to specify time-invariant variables, if any.
+
+```{r}
+wide <- make_wide(panel, static = "region")
+names(wide)
+```
+
+```{r}
+long <- make_long(wide, static = "region")
+names(long)
+```
+
+## xtdata
+
+`xtdata` command funcitonality can be partially reproduced with `make_demeaned()` function. Particularly, `xtdata, fe` is reproduced by passing only firm identifier to the function. 
+
+```{r}
+firm_demeaned <- make_demeaned(production, group = "firm")
+```
+
+Unlike Stata command, `make_demeaned()` allows you to demean variables not only within entities, but using various grouping patterns. For example, when data frame has panel attributes, it will be demeaned using both entities and time identifiers. Grouping by more than two variables is also available. 
+
+```{r}
+firm_year_demeaned <- make_demeaned(panel)
+```
+
+`xtdata, be` and `xtdata, re` functionality is not reproduced directly. However, with some additional efforts, `xtdata, be` can be replicated with `make_mundlak()` and `summarize_numeric()` as both these functions allow to calculate within-group means. 

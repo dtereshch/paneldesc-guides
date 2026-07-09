@@ -211,6 +211,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#xtsum" id="toc-xtsum" class="nav-link" data-scroll-target="#xtsum"><span class="header-section-number">7.6</span> xtsum</a></li>
   <li><a href="#xttab" id="toc-xttab" class="nav-link" data-scroll-target="#xttab"><span class="header-section-number">7.7</span> xttab</a></li>
   <li><a href="#xttrans" id="toc-xttrans" class="nav-link" data-scroll-target="#xttrans"><span class="header-section-number">7.8</span> xttrans</a></li>
+  <li><a href="#reshape" id="toc-reshape" class="nav-link" data-scroll-target="#reshape"><span class="header-section-number">7.9</span> reshape</a></li>
+  <li><a href="#xtdata" id="toc-xtdata" class="nav-link" data-scroll-target="#xtdata"><span class="header-section-number">7.10</span> xtdata</a></li>
   </ul>
 </nav>
     </div>
@@ -786,6 +788,49 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
+</section>
+<section id="reshape" class="level2" data-number="7.9">
+<h2 data-number="7.9" class="anchored" data-anchor-id="reshape"><span class="header-section-number">7.9</span> reshape</h2>
+<p><code>reshape</code> command funcitonality can be reproduced with <code>make_wide()</code> and <code>make_long()</code> functions. Unlike the Stata command, these functions do not require you to specify all variables to transform (all variables are transformed by default), but they do allow to specify time-invariant variables, if any.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>wide <span class="ot">&lt;-</span> <span class="fu">make_wide</span>(panel, <span class="at">static =</span> <span class="st">"region"</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(wide)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "firm"        "sales_1"     "capital_1"   "labor_1"     "industry_1" 
+ [6] "ownership_1" "sales_2"     "capital_2"   "labor_2"     "industry_2" 
+[11] "ownership_2" "sales_3"     "capital_3"   "labor_3"     "industry_3" 
+[16] "ownership_3" "sales_4"     "capital_4"   "labor_4"     "industry_4" 
+[21] "ownership_4" "sales_5"     "capital_5"   "labor_5"     "industry_5" 
+[26] "ownership_5" "sales_6"     "capital_6"   "labor_6"     "industry_6" 
+[31] "ownership_6" "region"     </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>long <span class="ot">&lt;-</span> <span class="fu">make_long</span>(wide, <span class="at">static =</span> <span class="st">"region"</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(long)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "firm"      "year"      "sales"     "capital"   "labor"     "industry" 
+[7] "ownership" "region"   </code></pre>
+</div>
+</div>
+</section>
+<section id="xtdata" class="level2" data-number="7.10">
+<h2 data-number="7.10" class="anchored" data-anchor-id="xtdata"><span class="header-section-number">7.10</span> xtdata</h2>
+<p><code>xtdata</code> command funcitonality can be partially reproduced with <code>make_demeaned()</code> function. Particularly, <code>xtdata, fe</code> is reproduced by passing only firm identifier to the function.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>firm_demeaned <span class="ot">&lt;-</span> <span class="fu">make_demeaned</span>(production, <span class="at">group =</span> <span class="st">"firm"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Demeaning numeric variables: year, sales, capital, labor</code></pre>
+</div>
+</div>
+<p>Unlike Stata command, <code>make_demeaned()</code> allows you to demean variables not only within entities, but using various grouping patterns. For example, when data frame has panel attributes, it will be demeaned using both entities and time identifiers. Grouping by more than two variables is also available.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>firm_year_demeaned <span class="ot">&lt;-</span> <span class="fu">make_demeaned</span>(panel)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Demeaning numeric variables: sales, capital, labor</code></pre>
+</div>
+</div>
+<p><code>xtdata, be</code> and <code>xtdata, re</code> functionality is not reproduced directly. However, with some additional efforts, <code>xtdata, be</code> can be replicated with <code>make_mundlak()</code> and <code>summarize_numeric()</code> as both these functions allow to calculate within-group means.</p>
 
 
 </section>
