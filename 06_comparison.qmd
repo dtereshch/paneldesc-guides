@@ -34,28 +34,46 @@ Create unbalanced panel for the analysis purposes.
 unbalanced <- production[rowSums(!is.na(production[, c("sales", "capital", "labor", "industry")])) > 0, ]
 ```
 
-
 ## paneldesc vs. pdynmc
 
+`paneldesc::plot_patterns()` and `pdynmc::strucUPD.plot()` visualize the participation patterns of entities in an unbalanced panel. `pdynmc::strucUPD.plot()` groups similar participation patterns by the number of periods and separates different patterns by bar color, while preserving the original order of the entities. In turn, `paneldesc::plot_patterns()` reorders entities by their patterns to show the dominance of each pattern using bar width.
+
 ```{r}
-paneldesc::plot_patterns(production, index = c("firm", "year"))
+paneldesc::plot_patterns(unbalanced, index = c("firm", "year"))
 ```
 
 ```{r}
 pdynmc::strucUPD.plot(unbalanced, i.name = "firm", t.name = "year")
 ```
 
-## paneldesc vs. modelsummary
+As can be seen above, the two functions produce similar results for an apparently unbalanced panel. However, applying `pdynmc::strucUPD.plot()` to the original `production` data frame results in an error, since it is technically balanced (the same number of years for each firm), while `paneldesc::plot_patterns()` detects entity-time pairs without other data and produces the same plot, showing the unbalanced panel structure.
 
 ```{r}
-paneldesc::summarize_numeric(production, select = c("capital", "labor"), group = "year")
+paneldesc::plot_patterns(production, index = c("firm", "year"))
+```
+
+## paneldesc vs. modelsummary
+
+Among many other functions, `paneldesc::summarize_numeric()` and `modelsummary::datasummary()` provide tables with descriptive statistics for numeric variables and also allow the user to calculate statistics within groups. The main advantage of `modelsummary::datasummary()` is the flexibility of the output appearance, allowing various parameters to be specified for the table structure and output format. In turn, `paneldesc::summarize_numeric()` always returns a data frame, preserving the user's freedom of further work with it. Furthermore, in my opinion, the syntax of `paneldesc::summarize_numeric()` is simpler compared to `modelsummary::datasummary()`, although this is a matter of taste.
+
+```{r}
+paneldesc::summarize_numeric(
+  production, 
+  select = c("capital", "labor"), 
+  group = "year"
+)
 ```
 
 ```{r}
-modelsummary::datasummary(Factor(year) * (capital + labor) ~ N + Mean + SD + Min + Max, data = production)
+modelsummary::datasummary(
+  Factor(year) * (capital + labor) ~ N + Mean + SD + Min + Max, 
+  data = production
+)
 ```
 
 ## paneldesc vs. gplots
+
+The functions `paneldesc::plot_heterogeneity()` and `gplots::plotmeans()` allow the user to analyze heterogeneity between and within groups. The results of these functions are quite similar: they visualize group means and the within-group variance of the selected variable. The main difference is that `gplots::plotmeans()` displays group size labels and plots confidence intervals, while `paneldesc::plot_heterogeneity()` plots a point for each observation to show both the variance and the group size.
 
 ```{r}
 paneldesc::plot_heterogeneity(production, select = "sales", group = "year")
@@ -67,51 +85,143 @@ gplots::plotmeans(sales ~ year, production)
 
 ## paneldesc vs. xtsum
 
+`paneldesc::decompose_numeric()` and `xtsum::xtsum()` provide descriptive statistics for numeric variables in panel data. Specifically, they decompose the standard deviation into between-value and within-value components, mimicking the `xtsum` command in Stata. The syntax and behavior of the functions are quite similar. By default, `xtsum::xtsum()` returns output in HTML format, although it allows customization. In turn, `paneldesc::summarize_numeric()` always returns a data frame, preserving the user's freedom for further manipulation.
+
 ```{r}
-paneldesc::decompose_numeric(production, select = c("sales", "capital", "labor"), index = "firm")
+paneldesc::decompose_numeric(
+  production, 
+  select = c("sales", "capital", "labor"), 
+  index = "firm"
+)
 ```
 
 ```{r}
-xtsum::xtsum(production, variables = c("sales", "capital", "labor"), id = "firm", t = "year", na.rm = TRUE)
+xtsum::xtsum(
+  production, 
+  variables = c("sales", "capital", "labor"), 
+  id = "firm", 
+  t = "year", 
+  na.rm = TRUE
+)
 ```
 
 ## paneldesc vs. plm
 
+`paneldesc::make_balanced()` and `plm::make.pbalanced()` allow the user to obtain various types of balanced panel datasets. 
+
 ```{r}
-paneldesc_bal_1 <- paneldesc::make_balanced(unbalanced, index = c("firm", "year"), balance = "entities")
+paneldesc_bal_1 <- paneldesc::make_balanced(
+  unbalanced, 
+  index = c("firm", "year"), 
+  balance = "entities"
+)
 dim(paneldesc_bal_1)
 ```
 
 ```{r}
-paneldesc_bal_2 <- paneldesc::make_balanced(unbalanced, index = c("firm", "year"), balance = "periods")
+paneldesc_bal_2 <- paneldesc::make_balanced(
+  unbalanced, 
+  index = c("firm", "year"), 
+  balance = "periods"
+)
 dim(paneldesc_bal_2)
 ```
 
 ```{r}
-paneldesc_bal_3 <- paneldesc::make_balanced(unbalanced, index = c("firm", "year"), balance = "rows")
+paneldesc_bal_3 <- paneldesc::make_balanced(
+  unbalanced, 
+  index = c("firm", "year"), 
+  balance = "rows"
+)
 dim(paneldesc_bal_3)
 ```
 
 ```{r}
-unbalanced_pdata <- plm::pdata.frame(unbalanced, index = c("firm", "year"))
-```
-
-```{r}
-plm_bal_1 <- plm::make.pbalanced(unbalanced_pdata, balance.type = "shared.individuals")
+plm_bal_1 <- plm::make.pbalanced(
+  unbalanced, 
+  index = c("firm", "year"), 
+  balance.type = "shared.individuals"
+)
 dim(plm_bal_1)
 ```
 
 ```{r}
-plm_bal_2 <- plm::make.pbalanced(unbalanced_pdata, balance.type = "shared.times")
+plm_bal_2 <- plm::make.pbalanced(
+  unbalanced, 
+  index = c("firm", "year"), 
+  balance.type = "shared.times"
+)
 dim(plm_bal_2)
 ```
 
 ```{r}
-plm_bal_3 <- plm::make.pbalanced(unbalanced_pdata, balance.type = "fill")
+plm_bal_3 <- plm::make.pbalanced(
+  unbalanced, 
+  index = c("firm", "year"), 
+  balance.type = "fill"
+)
 dim(plm_bal_3)
 ```
 
+As can be seen above, the two functions produce similar results for an apparently unbalanced panel. However, applying `plm::make.pbalanced()` to the original `production` dataframe results in no changes, as it is technically balanced (the same number of years for each firm), while `paneldesc::make_balanced()` automatically detects entity-time pairs without other data, revealing the unbalanced panel structure. This allows the function to balance the panel in the same way as shown above.
+
+```{r}
+paneldesc_bal_1b <- paneldesc::make_balanced(
+  production, 
+  index = c("firm", "year"), 
+  balance = "entities"
+)
+dim(paneldesc_bal_1b)
+```
+
+```{r}
+paneldesc_bal_2b <- paneldesc::make_balanced(
+  production, 
+  index = c("firm", "year"), 
+  balance = "periods"
+)
+dim(paneldesc_bal_2b)
+```
+
+```{r}
+paneldesc_bal_3b <- paneldesc::make_balanced(
+  production, 
+  index = c("firm", "year"), 
+  balance = "rows"
+)
+dim(paneldesc_bal_3b)
+```
+
+```{r}
+plm_bal_1b <- plm::make.pbalanced(
+  production, 
+  index = c("firm", "year"), 
+  balance.type = "shared.individuals"
+)
+dim(plm_bal_1b)
+```
+
+```{r}
+plm_bal_2b <- plm::make.pbalanced(
+  production, 
+  index = c("firm", "year"), 
+  balance.type = "shared.times"
+)
+dim(plm_bal_2b)
+```
+
+```{r}
+plm_bal_3b <- plm::make.pbalanced(
+  production, 
+  index = c("firm", "year"), 
+  balance.type = "fill"
+)
+dim(plm_bal_3b)
+```
+
 ## paneldesc vs. fixest
+
+`paneldesc::make_demeaned()` and `fixest::demean()` allow the user to demean variables  using various grouping patterns. As can be seen below, basic applications of these functions to a single variable produce similar results. When working with multiple variables, the behavior of the functions differs slightly. `fixest::demean()` is aimed at regression analysis and therefore removes all rows with missing values ​​for at least one variable and performs calculations based on the resulting dataset. `paneldesc::make_demeaned()`, in contrast, preserves missing values ​​in the dataset and performs transformations on the full dataset (when calculating within-group means, missing values ​​are removed for each variable separately, which often allows for more data to be used compared to `fixest::demean()`). Thus, the `paneldesc::make_demeaned()` function may be preferable for exploratory data analysis, as it preserves more observations. In turn, `fixest::demean()` is more flexible in configuration, allowing the user to select many additional parameters.
 
 ```{r}
 demeaned_paneldesc <- paneldesc::make_demeaned(
@@ -130,6 +240,8 @@ summary(demeaned_fixest)
 ```
 
 ## paneldesc vs. tidyr
+
+Among other functions, `paneldesc::make_wide()` and `paneldesc::make_long()`, as well as `tidyr::pivot_wider()` and `tidyr::pivot_longer()`, allow the user to transform panel data from long to wide format and from wide to long, respectively. The key advantage of the `paneldesc` functions is their simpler and more automatic implementation in a panel data context, including the ability to handle time-invariant variables specially. In turn, the `tidyr` functions are more adaptable for a wider range of applications, although they lack automatic solutions for panel data. For example, the `region` variable in the `production` dataset is a time-invariant variable, but has missing observations due to the unbalanced structure of the panel data. In this case, the `tidyr` functions require data preprocessing, which somewhat complicates their implementation (omitted here for brevity). Also, I find the syntax of the `paneldesc` function simpler than `tidyr`, although that's a matter of taste.
 
 ```{r}
 wide_paneldesc <- paneldesc::make_wide(
@@ -150,7 +262,7 @@ names(long_paneldesc)
 ```
 
 ```{r}
-wide_tidyr <- pivot_wider(
+wide_tidyr <- tidyr::pivot_wider(
   production,
   id_cols = firm,
   names_from = year,
@@ -160,7 +272,7 @@ names(wide_tidyr)
 ```
 
 ```{r}
-long_tidyr <- pivot_longer(
+long_tidyr <- tidyr::pivot_longer(
   wide_tidyr,
   cols = !firm,
   names_to = c(".value", "year"),
