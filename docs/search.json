@@ -364,7 +364,7 @@
     "href": "06_comparison.html",
     "title": "8  Comparison with other packages",
     "section": "",
-    "text": "8.1 Set up\nAlmost all of this package’s functionality can be replicated using individual functions from other packages. However, I believe the main advantage of the paneldesc package is that it combines all the functions necessary for panel data analysis and implements them in a single format. Below is a comparison with individual functions from other packages.\nImport packages to compare.\nlibrary(paneldesc)\nlibrary(gplots)\nlibrary(modelsummary)\nlibrary(plm)\nlibrary(pdynmc)\nlibrary(xtsum)",
+    "text": "8.1 Set up\nAlmost all of this package’s functionality can be replicated using individual functions from other packages. However, I believe the main advantage of the paneldesc package is that it combines all the functions necessary for panel data analysis and implements them in a single format. Below is a comparison with individual functions from other packages.\nImport packages to compare.\nlibrary(paneldesc)\nlibrary(tidyr)\nlibrary(gplots)\nlibrary(modelsummary)\nlibrary(plm)\nlibrary(fixest)\nlibrary(pdynmc)\nlibrary(xtsum)",
     "crumbs": [
       "<span class='chapter-number'>8</span>  <span class='chapter-title'>Comparison with other packages</span>"
     ]
@@ -425,6 +425,26 @@
     "title": "8  Comparison with other packages",
     "section": "8.7 paneldesc vs. plm",
     "text": "8.7 paneldesc vs. plm\n\npaneldesc_bal_1 &lt;- paneldesc::make_balanced(unbalanced, index = c(\"firm\", \"year\"), balance = \"entities\")\ndim(paneldesc_bal_1)\n\n[1] 96  8\n\n\n\npaneldesc_bal_2 &lt;- paneldesc::make_balanced(unbalanced, index = c(\"firm\", \"year\"), balance = \"periods\")\ndim(paneldesc_bal_2)\n\n[1] 30  8\n\n\n\npaneldesc_bal_3 &lt;- paneldesc::make_balanced(unbalanced, index = c(\"firm\", \"year\"), balance = \"rows\")\ndim(paneldesc_bal_3)\n\n[1] 180   8\n\n\n\nunbalanced_pdata &lt;- plm::pdata.frame(unbalanced, index = c(\"firm\", \"year\"))\n\n\nplm_bal_1 &lt;- plm::make.pbalanced(unbalanced_pdata, balance.type = \"shared.individuals\")\ndim(plm_bal_1)\n\n[1] 96  8\n\n\n\nplm_bal_2 &lt;- plm::make.pbalanced(unbalanced_pdata, balance.type = \"shared.times\")\ndim(plm_bal_2)\n\n[1] 30  8\n\n\n\nplm_bal_3 &lt;- plm::make.pbalanced(unbalanced_pdata, balance.type = \"fill\")\ndim(plm_bal_3)\n\n[1] 180   8",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Comparison with other packages</span>"
+    ]
+  },
+  {
+    "objectID": "06_comparison.html#paneldesc-vs.-fixest",
+    "href": "06_comparison.html#paneldesc-vs.-fixest",
+    "title": "8  Comparison with other packages",
+    "section": "8.8 paneldesc vs. fixest",
+    "text": "8.8 paneldesc vs. fixest\n\ndemeaned_paneldesc &lt;- paneldesc::make_demeaned(\n    production[, c(\"sales\", \"firm\", \"year\")], \n    group = c(\"firm\", \"year\")\n)\n\nDemeaning numeric variables: sales\n\nsummary(demeaned_paneldesc)\n\n     sales               firm           year    \n Min.   :-75.9166   Min.   : 1.0   Min.   :1.0  \n 1st Qu.:-22.7824   1st Qu.: 8.0   1st Qu.:2.0  \n Median : -0.6208   Median :15.5   Median :3.5  \n Mean   :  0.0000   Mean   :15.5   Mean   :3.5  \n 3rd Qu.: 16.3642   3rd Qu.:23.0   3rd Qu.:5.0  \n Max.   :163.1807   Max.   :30.0   Max.   :6.0  \n NA's   :26                                     \n\n\n\ndemeaned_fixest &lt;- fixest::demean(\n  X = production[, \"sales\"],\n  f = production[, c(\"firm\", \"year\")]\n)\n\nNOTE: 26 observations removed because of NA values (Breakup: X: 26, f: 0).\n\nsummary(demeaned_fixest)\n\n       V1          \n Min.   :-75.9166  \n 1st Qu.:-22.7824  \n Median : -0.6208  \n Mean   :  0.0000  \n 3rd Qu.: 16.3642  \n Max.   :163.1807",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Comparison with other packages</span>"
+    ]
+  },
+  {
+    "objectID": "06_comparison.html#paneldesc-vs.-tidyr",
+    "href": "06_comparison.html#paneldesc-vs.-tidyr",
+    "title": "8  Comparison with other packages",
+    "section": "8.9 paneldesc vs. tidyr",
+    "text": "8.9 paneldesc vs. tidyr\n\nwide_paneldesc &lt;- paneldesc::make_wide(\n    production, \n    index = c(\"firm\", \"year\"), \n    static = \"region\"\n)\nnames(wide_paneldesc)\n\n [1] \"firm\"        \"sales_1\"     \"capital_1\"   \"labor_1\"     \"industry_1\" \n [6] \"ownership_1\" \"sales_2\"     \"capital_2\"   \"labor_2\"     \"industry_2\" \n[11] \"ownership_2\" \"sales_3\"     \"capital_3\"   \"labor_3\"     \"industry_3\" \n[16] \"ownership_3\" \"sales_4\"     \"capital_4\"   \"labor_4\"     \"industry_4\" \n[21] \"ownership_4\" \"sales_5\"     \"capital_5\"   \"labor_5\"     \"industry_5\" \n[26] \"ownership_5\" \"sales_6\"     \"capital_6\"   \"labor_6\"     \"industry_6\" \n[31] \"ownership_6\" \"region\"     \n\n\n\nlong_paneldesc &lt;- paneldesc::make_long(\n    wide_paneldesc, \n    index = c(\"firm\", \"year\"), \n    static = \"region\"\n)\nnames(long_paneldesc)\n\n[1] \"firm\"      \"year\"      \"sales\"     \"capital\"   \"labor\"     \"industry\" \n[7] \"ownership\" \"region\"   \n\n\n\nwide_tidyr &lt;- pivot_wider(\n  production,\n  id_cols = firm,\n  names_from = year,\n  values_from = !c(firm, year)\n)\nnames(wide_tidyr)\n\n [1] \"firm\"        \"sales_1\"     \"sales_2\"     \"sales_3\"     \"sales_4\"    \n [6] \"sales_5\"     \"sales_6\"     \"capital_1\"   \"capital_2\"   \"capital_3\"  \n[11] \"capital_4\"   \"capital_5\"   \"capital_6\"   \"labor_1\"     \"labor_2\"    \n[16] \"labor_3\"     \"labor_4\"     \"labor_5\"     \"labor_6\"     \"industry_1\" \n[21] \"industry_2\"  \"industry_3\"  \"industry_4\"  \"industry_5\"  \"industry_6\" \n[26] \"ownership_1\" \"ownership_2\" \"ownership_3\" \"ownership_4\" \"ownership_5\"\n[31] \"ownership_6\" \"region_1\"    \"region_2\"    \"region_3\"    \"region_4\"   \n[36] \"region_5\"    \"region_6\"   \n\n\n\nlong_tidyr &lt;- pivot_longer(\n  wide_tidyr,\n  cols = !firm,\n  names_to = c(\".value\", \"year\"),\n  names_pattern = \"(.*)_(.*)\"\n)\n\nnames(long_tidyr)\n\n[1] \"firm\"      \"year\"      \"sales\"     \"capital\"   \"labor\"     \"industry\" \n[7] \"ownership\" \"region\"",
     "crumbs": [
       "<span class='chapter-number'>8</span>  <span class='chapter-title'>Comparison with other packages</span>"
     ]

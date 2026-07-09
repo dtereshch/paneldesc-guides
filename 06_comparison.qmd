@@ -11,9 +11,11 @@ Import packages to compare.
 
 ```{r, message=FALSE}
 library(paneldesc)
+library(tidyr)
 library(gplots)
 library(modelsummary)
 library(plm)
+library(fixest)
 library(pdynmc)
 library(xtsum)
 ```
@@ -107,4 +109,63 @@ dim(plm_bal_2)
 ```{r}
 plm_bal_3 <- plm::make.pbalanced(unbalanced_pdata, balance.type = "fill")
 dim(plm_bal_3)
+```
+
+## paneldesc vs. fixest
+
+```{r}
+demeaned_paneldesc <- paneldesc::make_demeaned(
+    production[, c("sales", "firm", "year")], 
+    group = c("firm", "year")
+)
+summary(demeaned_paneldesc)
+```
+
+```{r}
+demeaned_fixest <- fixest::demean(
+  X = production[, "sales"],
+  f = production[, c("firm", "year")]
+)
+summary(demeaned_fixest)
+```
+
+## paneldesc vs. tidyr
+
+```{r}
+wide_paneldesc <- paneldesc::make_wide(
+    production, 
+    index = c("firm", "year"), 
+    static = "region"
+)
+names(wide_paneldesc)
+```
+
+```{r}
+long_paneldesc <- paneldesc::make_long(
+    wide_paneldesc, 
+    index = c("firm", "year"), 
+    static = "region"
+)
+names(long_paneldesc)
+```
+
+```{r}
+wide_tidyr <- pivot_wider(
+  production,
+  id_cols = firm,
+  names_from = year,
+  values_from = !c(firm, year)
+)
+names(wide_tidyr)
+```
+
+```{r}
+long_tidyr <- pivot_longer(
+  wide_tidyr,
+  cols = !firm,
+  names_to = c(".value", "year"),
+  names_pattern = "(.*)_(.*)"
+)
+
+names(long_tidyr)
 ```
