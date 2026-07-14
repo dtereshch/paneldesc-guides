@@ -365,13 +365,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="adding-group-means" class="level2" data-number="6.6">
 <h2 data-number="6.6" class="anchored" data-anchor-id="adding-group-means"><span class="header-section-number">6.6</span> Adding group means</h2>
-<p><code>make_mundlak()</code> adds group means of numeric variables to a data frame, which can be used for Mundlak-style (correlated random effects) modeling or for other purposes where within-group averages are needed.</p>
+<p><code>add_means()</code> adds group means of numeric variables to a data frame, which can be used for Mundlak-style (correlated random effects) modeling or for other purposes where within-group averages are needed.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>mundlak <span class="ot">&lt;-</span> <span class="fu">make_mundlak</span>(panel)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>panel_means <span class="ot">&lt;-</span> <span class="fu">add_means</span>(panel)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Adding group means for numeric variables: sales, capital, labor</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(mundlak)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(panel_means)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "firm"              "year"              "sales"            
  [4] "capital"           "labor"             "industry"         

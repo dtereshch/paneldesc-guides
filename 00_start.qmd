@@ -18,6 +18,7 @@ library(paneldesc)
 All functions of the package have detailed documentation with examples.
 
 ```{r, eval=FALSE}
+?add_means
 ?decompose_factor
 ?decompose_numeric
 ?describe_balance
@@ -28,7 +29,6 @@ All functions of the package have detailed documentation with examples.
 ?make_balanced
 ?make_demeaned
 ?make_long
-?make_mundlak
 ?make_panel
 ?make_wide
 ?plot_demeaned
