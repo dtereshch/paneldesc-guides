@@ -39,7 +39,7 @@ panel <- make_panel(production, index = c("firm", "year"), delta = 1)
 
 ## xtdes
 
-`xtdes` command funcitonality can be reproduced by combining `describe_dimensions()`, `describe_balance()`, and `describe_patterns()` functions.
+`xtdes` command functionality can be reproduced by combining `describe_dimensions()`, `describe_balance()`, and `describe_patterns()` functions.
 
 ```{r}
 describe_dimensions(panel)
@@ -55,7 +55,7 @@ describe_patterns(panel)
 
 ## xtsum
 
-`xtsum` command funcitonality can be reproduced with `decompose_numeric()` function.
+`xtsum` command functionality can be reproduced with `decompose_numeric()` function.
 
 ```{r}
 decompose_numeric(panel)
@@ -63,7 +63,7 @@ decompose_numeric(panel)
 
 ## xttab
 
-`xttab` command funcitonality can be reproduced with `decompose_factor()` function.
+`xttab` command functionality can be reproduced with `decompose_factor()` function.
 
 ```{r}
 decompose_factor(panel)
@@ -71,7 +71,7 @@ decompose_factor(panel)
 
 ## xttrans
 
-`xttrans` command funcitonality can be reproduced with `summarize_transition()` function.
+`xttrans` command functionality can be reproduced with `summarize_transition()` function.
 
 ```{r}
 summarize_transition(panel, select = "industry")
@@ -79,7 +79,7 @@ summarize_transition(panel, select = "industry")
 
 ## reshape
 
-`reshape` command funcitonality can be reproduced with `make_wide()` and `make_long()` functions. 
+`reshape` command functionality can be reproduced with `make_wide()` and `make_long()` functions. 
 
 ```{r}
 wide <- make_wide(panel, select = c("sales", "capital", "labor", "industry", "ownership"))
@@ -91,7 +91,7 @@ long <- make_long(wide, select = c("sales", "capital", "labor", "industry", "own
 
 ## xtdata
 
-`xtdata` command funcitonality can be partially reproduced with `make_demeaned()` function. Particularly, `xtdata, fe` is reproduced by passing only firm identifier to the function. 
+`xtdata` command functionality can be partially reproduced with `make_demeaned()` function. Particularly, `xtdata, fe` is reproduced by passing only firm identifier to the function. 
 
 ```{r}
 firm_demeaned <- make_demeaned(production, group = "firm")

@@ -330,7 +330,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="xtdes" class="level2" data-number="7.5">
 <h2 data-number="7.5" class="anchored" data-anchor-id="xtdes"><span class="header-section-number">7.5</span> xtdes</h2>
-<p><code>xtdes</code> command funcitonality can be reproduced by combining <code>describe_dimensions()</code>, <code>describe_balance()</code>, and <code>describe_patterns()</code> functions.</p>
+<p><code>xtdes</code> command functionality can be reproduced by combining <code>describe_dimensions()</code>, <code>describe_balance()</code>, and <code>describe_patterns()</code> functions.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">describe_dimensions</span>(panel)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
@@ -509,7 +509,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="xtsum" class="level2" data-number="7.6">
 <h2 data-number="7.6" class="anchored" data-anchor-id="xtsum"><span class="header-section-number">7.6</span> xtsum</h2>
-<p><code>xtsum</code> command funcitonality can be reproduced with <code>decompose_numeric()</code> function.</p>
+<p><code>xtsum</code> command functionality can be reproduced with <code>decompose_numeric()</code> function.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">decompose_numeric</span>(panel)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
@@ -619,7 +619,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="xttab" class="level2" data-number="7.7">
 <h2 data-number="7.7" class="anchored" data-anchor-id="xttab"><span class="header-section-number">7.7</span> xttab</h2>
-<p><code>xttab</code> command funcitonality can be reproduced with <code>decompose_factor()</code> function.</p>
+<p><code>xttab</code> command functionality can be reproduced with <code>decompose_factor()</code> function.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">decompose_factor</span>(panel)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
@@ -747,7 +747,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="xttrans" class="level2" data-number="7.8">
 <h2 data-number="7.8" class="anchored" data-anchor-id="xttrans"><span class="header-section-number">7.8</span> xttrans</h2>
-<p><code>xttrans</code> command funcitonality can be reproduced with <code>summarize_transition()</code> function.</p>
+<p><code>xttrans</code> command functionality can be reproduced with <code>summarize_transition()</code> function.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize_transition</span>(panel, <span class="at">select =</span> <span class="st">"industry"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
@@ -791,7 +791,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="reshape" class="level2" data-number="7.9">
 <h2 data-number="7.9" class="anchored" data-anchor-id="reshape"><span class="header-section-number">7.9</span> reshape</h2>
-<p><code>reshape</code> command funcitonality can be reproduced with <code>make_wide()</code> and <code>make_long()</code> functions.</p>
+<p><code>reshape</code> command functionality can be reproduced with <code>make_wide()</code> and <code>make_long()</code> functions.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>wide <span class="ot">&lt;-</span> <span class="fu">make_wide</span>(panel, <span class="at">select =</span> <span class="fu">c</span>(<span class="st">"sales"</span>, <span class="st">"capital"</span>, <span class="st">"labor"</span>, <span class="st">"industry"</span>, <span class="st">"ownership"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -813,7 +813,7 @@ Reshaped variables: sales, capital, labor, industry, ownership </code></pre>
 </section>
 <section id="xtdata" class="level2" data-number="7.10">
 <h2 data-number="7.10" class="anchored" data-anchor-id="xtdata"><span class="header-section-number">7.10</span> xtdata</h2>
-<p><code>xtdata</code> command funcitonality can be partially reproduced with <code>make_demeaned()</code> function. Particularly, <code>xtdata, fe</code> is reproduced by passing only firm identifier to the function.</p>
+<p><code>xtdata</code> command functionality can be partially reproduced with <code>make_demeaned()</code> function. Particularly, <code>xtdata, fe</code> is reproduced by passing only firm identifier to the function.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>firm_demeaned <span class="ot">&lt;-</span> <span class="fu">make_demeaned</span>(production, <span class="at">group =</span> <span class="st">"firm"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
