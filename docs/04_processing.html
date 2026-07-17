@@ -306,27 +306,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="reshaping-panel-data" class="level2" data-number="6.4">
 <h2 data-number="6.4" class="anchored" data-anchor-id="reshaping-panel-data"><span class="header-section-number">6.4</span> Reshaping panel data</h2>
 <p>A standard type of panel data transformation is reshaping from long format to wide format and vice versa.</p>
-<p>Since the original data frame is presented in long format, we can reshape it to wide format using <code>make_wide()</code>. Note that <code>region</code> variable is time-invariant, so it is better to declare it using <code>static</code> argument.</p>
+<p>Note that <code>region</code> variable is time-invariant, while other variables are time-varying. For reuse, we first create a vector with names of variables to be reshaped (everything except static variables and panel identifiers).</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>panel_wide <span class="ot">&lt;-</span> <span class="fu">make_wide</span>(panel, <span class="at">static =</span> <span class="st">"region"</span>)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(panel_wide)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>vars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"sales"</span>, <span class="st">"capital"</span>, <span class="st">"labor"</span>, <span class="st">"industry"</span>, <span class="st">"ownership"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Since the original data frame is presented in long format, we can reshape it to wide format using <code>make_wide()</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>panel_wide <span class="ot">&lt;-</span> <span class="fu">make_wide</span>(panel, <span class="at">select =</span> vars)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] "firm"        "sales_1"     "capital_1"   "labor_1"     "industry_1" 
- [6] "ownership_1" "sales_2"     "capital_2"   "labor_2"     "industry_2" 
-[11] "ownership_2" "sales_3"     "capital_3"   "labor_3"     "industry_3" 
-[16] "ownership_3" "sales_4"     "capital_4"   "labor_4"     "industry_4" 
-[21] "ownership_4" "sales_5"     "capital_5"   "labor_5"     "industry_5" 
-[26] "ownership_5" "sales_6"     "capital_6"   "labor_6"     "industry_6" 
-[31] "ownership_6" "region"     </code></pre>
+<pre><code>  Static variables: region 
+Reshaped variables: sales_1, sales_2, sales_3, sales_4, sales_5, sales_6 
+                    capital_1, capital_2, capital_3, capital_4, capital_5, capital_6 
+                    labor_1, labor_2, labor_3, labor_4, labor_5, labor_6 
+                    industry_1, industry_2, industry_3, industry_4, industry_5, industry_6 
+                    ownership_1, ownership_2, ownership_3, ownership_4, ownership_5, ownership_6 </code></pre>
 </div>
 </div>
 <p>Next, as an exercise, we can convert the wide format data we just obtained back to long format.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>panel_long <span class="ot">&lt;-</span> <span class="fu">make_long</span>(panel_wide, <span class="at">static =</span> <span class="st">"region"</span>)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(panel_long)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>panel_long <span class="ot">&lt;-</span> <span class="fu">make_long</span>(panel_wide, <span class="at">select =</span> vars)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "firm"      "year"      "sales"     "capital"   "labor"     "industry" 
-[7] "ownership" "region"   </code></pre>
+<pre><code>  Static variables: region 
+Reshaped variables: sales, capital, labor, industry, ownership </code></pre>
 </div>
 </div>
 <p>In the latter case, the data frame is the same as the original one.</p>
@@ -335,14 +336,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="6.5" class="anchored" data-anchor-id="within-group-demeaning"><span class="header-section-number">6.5</span> Within-group demeaning</h2>
 <p><code>make_demeaned()</code> performs within-group demeaning (centering) for all numeric variables in a data frame.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>demeaned <span class="ot">&lt;-</span> <span class="fu">make_demeaned</span>(panel)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>demeaned <span class="ot">&lt;-</span> <span class="fu">make_demeaned</span>(panel)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Demeaning numeric variables: sales, capital, labor</code></pre>
 </div>
 </div>
 <p>The returned dataframe has the same structure as the original one, but its numeric variables are transformed. The resulting dataframe can be used for descriptive analysis of the transformed data or for regression analysis.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(demeaned)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(demeaned)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      firm           year         sales             capital       
  Min.   : 1.0   Min.   :1.0   Min.   :-75.9166   Min.   :-58.719  
@@ -367,11 +368,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="6.6" class="anchored" data-anchor-id="adding-group-means"><span class="header-section-number">6.6</span> Adding group means</h2>
 <p><code>add_means()</code> adds group means of numeric variables to a data frame, which can be used for Mundlak-style (correlated random effects) modeling or for other purposes where within-group averages are needed.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>panel_means <span class="ot">&lt;-</span> <span class="fu">add_means</span>(panel)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>panel_means <span class="ot">&lt;-</span> <span class="fu">add_means</span>(panel)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Adding group means for numeric variables: sales, capital, labor</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(panel_means)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(panel_means)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "firm"              "year"              "sales"            
  [4] "capital"           "labor"             "industry"         

@@ -791,26 +791,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="reshape" class="level2" data-number="7.9">
 <h2 data-number="7.9" class="anchored" data-anchor-id="reshape"><span class="header-section-number">7.9</span> reshape</h2>
-<p><code>reshape</code> command funcitonality can be reproduced with <code>make_wide()</code> and <code>make_long()</code> functions. Unlike the Stata command, these functions do not require you to specify all variables to transform (all variables are transformed by default), but they do allow to specify time-invariant variables, if any.</p>
+<p><code>reshape</code> command funcitonality can be reproduced with <code>make_wide()</code> and <code>make_long()</code> functions.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>wide <span class="ot">&lt;-</span> <span class="fu">make_wide</span>(panel, <span class="at">static =</span> <span class="st">"region"</span>)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(wide)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>wide <span class="ot">&lt;-</span> <span class="fu">make_wide</span>(panel, <span class="at">select =</span> <span class="fu">c</span>(<span class="st">"sales"</span>, <span class="st">"capital"</span>, <span class="st">"labor"</span>, <span class="st">"industry"</span>, <span class="st">"ownership"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] "firm"        "sales_1"     "capital_1"   "labor_1"     "industry_1" 
- [6] "ownership_1" "sales_2"     "capital_2"   "labor_2"     "industry_2" 
-[11] "ownership_2" "sales_3"     "capital_3"   "labor_3"     "industry_3" 
-[16] "ownership_3" "sales_4"     "capital_4"   "labor_4"     "industry_4" 
-[21] "ownership_4" "sales_5"     "capital_5"   "labor_5"     "industry_5" 
-[26] "ownership_5" "sales_6"     "capital_6"   "labor_6"     "industry_6" 
-[31] "ownership_6" "region"     </code></pre>
+<pre><code>  Static variables: region 
+Reshaped variables: sales_1, sales_2, sales_3, sales_4, sales_5, sales_6 
+                    capital_1, capital_2, capital_3, capital_4, capital_5, capital_6 
+                    labor_1, labor_2, labor_3, labor_4, labor_5, labor_6 
+                    industry_1, industry_2, industry_3, industry_4, industry_5, industry_6 
+                    ownership_1, ownership_2, ownership_3, ownership_4, ownership_5, ownership_6 </code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>long <span class="ot">&lt;-</span> <span class="fu">make_long</span>(wide, <span class="at">static =</span> <span class="st">"region"</span>)</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(long)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>long <span class="ot">&lt;-</span> <span class="fu">make_long</span>(wide, <span class="at">select =</span> <span class="fu">c</span>(<span class="st">"sales"</span>, <span class="st">"capital"</span>, <span class="st">"labor"</span>, <span class="st">"industry"</span>, <span class="st">"ownership"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "firm"      "year"      "sales"     "capital"   "labor"     "industry" 
-[7] "ownership" "region"   </code></pre>
+<pre><code>  Static variables: region 
+Reshaped variables: sales, capital, labor, industry, ownership </code></pre>
 </div>
 </div>
 </section>

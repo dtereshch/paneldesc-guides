@@ -241,24 +241,22 @@ summary(demeaned_fixest)
 
 ## paneldesc vs. tidyr
 
-Among other functions, `paneldesc::make_wide()` and `paneldesc::make_long()`, as well as `tidyr::pivot_wider()` and `tidyr::pivot_longer()`, allow the user to transform panel data from long to wide format and from wide to long, respectively. The key advantage of the `paneldesc` functions is their simpler and more automatic implementation in a panel data context, including the ability to handle time-invariant variables specially. In turn, the `tidyr` functions are more adaptable for a wider range of applications, although they lack automatic solutions for panel data. For example, the `region` variable in the `production` dataset is a time-invariant variable, but has missing observations due to the unbalanced structure of the panel data. In this case, the `tidyr` functions require data preprocessing, which somewhat complicates their implementation (omitted here for brevity). Also, I find the syntax of the `paneldesc` function simpler than `tidyr`, although that's a matter of taste.
+Among other functions, `paneldesc::make_wide()` and `paneldesc::make_long()`, as well as `tidyr::pivot_wider()` and `tidyr::pivot_longer()`, allow the user to transform panel data from long to wide format and from wide to long, respectively. The key advantage of the `paneldesc` functions is their simpler and more automatic implementation in a panel data context, including the ability to handle time-varying and static variables separately. In turn, the `tidyr` functions are more adaptable for a broader range of applications, although they lack automatic solutions for panel data. For example, the `region` variable in the `production` dataset is a time-invariant variable, but has missing observations due to the unbalanced structure of the panel data. In this case, the `tidyr` functions require data preprocessing, which somewhat complicates their implementation (omitted here for brevity). Also, I find the syntax of the `paneldesc` function simpler than `tidyr`, although that's a matter of taste.
 
 ```{r}
 wide_paneldesc <- paneldesc::make_wide(
     production, 
-    index = c("firm", "year"), 
-    static = "region"
+    select = c("sales", "capital", "labor", "industry", "ownership"),
+    index = c("firm", "year")
 )
-names(wide_paneldesc)
 ```
 
 ```{r}
 long_paneldesc <- paneldesc::make_long(
     wide_paneldesc, 
-    index = c("firm", "year"), 
-    static = "region"
+    select = c("sales", "capital", "labor", "industry", "ownership"), 
+    index = c("firm", "year")
 )
-names(long_paneldesc)
 ```
 
 ```{r}
@@ -278,6 +276,5 @@ long_tidyr <- tidyr::pivot_longer(
   names_to = c(".value", "year"),
   names_pattern = "(.*)_(.*)"
 )
-
 names(long_tidyr)
 ```
